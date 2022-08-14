@@ -6,11 +6,21 @@ export interface Props {
 const { title } = Astro.props as Props;
 ---
 
-<section class="flex flex-col items-center md:flex-row md:justify-between md:gap-x-24">
+<section class="flex flex-col items-center gap-y-10 md:flex-row md:justify-between md:gap-x-24">
     <div>
-        <h1 class="text-3xl text-white font-bold">{title}</h1>
+        <h1 class="text-3xl text-white font-bold">{title} <svg class="w-16 h-16 inline-block animate-waving" viewBox="0 0 72 72"
+                xmlns="http://www.w3.org/2000/svg">
+                <path fill="#FCEA2B"
+                    d="M18.657 19.24a3.531 3.531 0 1 0-5.563 4.25l11.533 15.1 2.688 3.387-7.89-10.331a3.531 3.531 0 1 0-5.564 4.249l7.891 10.331 6.27 7.899c5.468 6.273 14.515 5.93 20.787.465a19.617 19.617 0 0 0 6.515-12.31c.386-4.233.807-15.301.807-15.301-.182-2.601-3.135-4.524-3.515-3.18l-4.894 9.757-3.366-4.223 3.366 4.223-3.366-4.223-13.465-17.208a3.531 3.531 0 1 0-5.563 4.249l4.249 5.563L36 30.417l-13.419-17.68a3.531 3.531 0 1 0-5.563 4.248L31.689 36" />
+                <g fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                    <path
+                        d="M18.657 19.24a3.531 3.531 0 1 0-5.563 4.25l11.533 15.1 2.688 3.387-7.89-10.331a3.531 3.531 0 1 0-5.564 4.249l7.891 10.331 6.27 7.899c5.468 6.273 14.515 5.93 20.787.465a19.617 19.617 0 0 0 6.515-12.31c.386-4.233.807-15.301.807-15.301-.182-2.601-3.135-4.524-3.515-3.18l-4.894 9.757-3.366-4.223 3.366 4.223-3.366-4.223-13.465-17.208a3.531 3.531 0 1 0-5.563 4.249l4.249 5.563L36 30.417l-13.419-17.68a3.531 3.531 0 1 0-5.563 4.248L31.689 36" />
+                    <path stroke-miterlimit="10"
+                        d="M11.673 42.872c0 2.566 1.747 4.643 3.905 4.643m-8.517-5.078c0 5.596 3.81 10.124 8.517 10.124m29.684-31.323c0-2.567-1.747-4.643-3.906-4.643m8.517 5.078c0-5.596-3.81-10.124-8.517-10.124" />
+                </g>
+            </svg></h1>
         <p class="text-lg text-gray-500 mb-5">
-            Desarrollador Web Full Stack con 2 años de experiencia en el desarrollo de aplicaciones web.
+            Desarrollador Web Full Stack con 2 años de experiencia en el desarrollo de aplicaciones web con React.
         </p>
 
         <div class="flex flex-col gap-y-4">
@@ -30,8 +40,8 @@ const { title } = Astro.props as Props;
             </a>
         </div>
     </div>
-    <div class="shrink-0">
-        <img class="h-auto w-64 rounded-full max-w-full" loading="lazy" src="/img/photo-andres-vizcaino.jpg"
+    <div class="shrink-0 hover:animate-pulse">
+        <img class="h-auto w-64 rounded-full max-w-full border-white border-8" loading="lazy" src="/img/photo-andres-vizcaino.png"
             alt="Foto de Andrés Vizcaíno">
     </div>
 </section>

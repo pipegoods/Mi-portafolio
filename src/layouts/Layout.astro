@@ -9,14 +9,44 @@ const { title } = Astro.props as Props;
 
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
-	</head>
-	<body class="bg-black grid min-h-screen place-content-center">
-		<slot />
-	</body>
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width" />
+	<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+	<link rel="manifest" href="/site.webmanifest">
+	<meta name="generator" content={Astro.generator} />
+	<title>{title}</title>
+	<!-- Primary Meta Tags -->
+	<meta name="title" content="Hola, soy Andrés Vizcaíno">
+	<meta name="description"
+		content="Desarrollador Web Full Stack con 2 años de experiencia en el desarrollo de aplicaciones web con React.">
+
+	<!-- Open Graph / Facebook -->
+	<meta property="og:type" content="website">
+	<meta property="og:url" content="https://andresvizcaino.dev/">
+	<meta property="og:title" content="Hola, soy Andrés Vizcaíno">
+	<meta property="og:description"
+		content="Desarrollador Web Full Stack con 2 años de experiencia en el desarrollo de aplicaciones web con React.">
+	<meta property="og:image"
+		content="https://andresvizcaino.dev/img/photo-andres-vizcaino.jpg">
+
+	<!-- Twitter -->
+	<meta property="twitter:card" content="summary_large_image">
+	<meta property="twitter:url" content="https://andresvizcaino.dev/">
+	<meta property="twitter:title" content="Hola, soy Andrés Vizcaíno">
+	<meta property="twitter:description"
+		content="Desarrollador Web Full Stack con 2 años de experiencia en el desarrollo de aplicaciones web con React.">
+	<meta property="twitter:image"
+		content="https://andresvizcaino.dev/img/photo-andres-vizcaino.jpg">
+</head>
+
+<body class="bg-zinc-900 grid min-h-screen place-content-center">
+	<slot />
+	<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+</body>
+
 </html>
