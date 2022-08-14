@@ -1,5 +1,5 @@
 {
-  "name": "@example/basics",
+  "name": "@pipegoods/portfolio",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -12,5 +12,8 @@
   "devDependencies": {
     "@astrojs/tailwind": "^1.0.0",
     "astro": "^1.0.5"
+  },
+  "dependencies": {
+    "@fontsource/poppins": "^4.5.9"
   }
 }
