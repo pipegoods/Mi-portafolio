@@ -1,6 +1,6 @@
 # Bienvenido a mi portafolio
 
-> 🧑‍🚀 **Aún en construcción
+> 🧑‍🚀 \*\*Aún en construcción
 
 ## 🚀 Metas
 
