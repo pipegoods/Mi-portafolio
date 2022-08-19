@@ -1,14 +1,35 @@
-<section
-  class="flex flex-col items-center gap-y-10 md:flex-row md:justify-between md:gap-x-24"
->
-  <ul>
-    <li>React</li>
-    <li>Redux</li>
-    <li>React Router</li>
-    <li>Redux Thunk</li>
-    <li>Redux Saga</li>
-    <li>Redux Form</li>
-    <li>React-Bootstrap</li>
-    <li>React-Router-Bootstrap</li>
-  </ul>
+---
+// TODO: agregar las tecnologias que faltan
+const skills = [
+  "react",
+  "html",
+  "css",
+  "firebase",
+  "git",
+  "figma",
+  "js",
+  "npm",
+  "node",
+  "bootstrap",
+  "trello",
+];
+---
+
+<section class="text-center">
+  <h1 class="text-white text-3xl mb-10 font-bold">Tecnologias que domino</h1>
+  <div class="flex justify-center">
+    <div class="flex flex-wrap justify-center">
+      {
+        skills.map((skill) => (
+          <div class="w-1/6 p-1 hover:bg-white rounded-full transition-colors">
+            <img
+              src={`/img/logos/${skill}.png`}
+              alt={"logo de" + skill}
+              class="w-full"
+            />
+          </div>
+        ))
+      }
+    </div>
+  </div>
 </section>
