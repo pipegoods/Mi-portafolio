@@ -1,0 +1,70 @@
+---
+const projects = [
+  {
+    name: "Pets Cédula",
+    description:
+      "Crea una cédula para tu mascota, genera un QR único para cada mascota",
+    technologies: [
+      "TailwindCSS",
+      "Next JS",
+      "Prisma ORM",
+      "PostgreSQL",
+      "Vercel",
+    ],
+    link: "https://github.com/pipegoods/pets-cedula",
+  },
+  {
+    name: "Whats me Fast",
+    description:
+      "Quienes chatear con alguien por whatsApp pero no quieres agregarlo a tus contactos, esta es tu app",
+    technologies: ["CSS", "React JS", "Local Storage", "PostgreSQL", "Vercel"],
+    link: "https://github.com/pipegoods/whats-me-fast",
+  },
+  {
+    name: "Mi Band estrés",
+    description:
+      "Proyecto de grado, una app para medir el estrés de una persona, con un sensor de frecuencia cardíaca utilizando el IOT - Xiaomi Mi band",
+    technologies: ["Firebase", "React JS", "Material UI", "Firestore"],
+    link: "https://github.com/pipegoods/labestres",
+  },
+  {
+    name: "El Bicho App",
+    description:
+      "Video juego sobre el bicho (Cristiano Ronaldo), el cual debes anotar goles y obtener el mayor puntaje",
+    technologies: ["Firebase", "Vue JS", "CSS", "HTML"],
+    link: "https://github.com/pipegoods/ElBichoAPP",
+  },
+];
+---
+
+<section class="text-center mb-20 sm:mb-60">
+  <h1 class="text-white text-3xl mb-10 font-bold">Proyectos</h1>
+  <div class="flex justify-center">
+    <div class="flex flex-wrap justify-center">
+      {
+        projects.map((project, index) => (
+          <div class="w-full md:w-1/2 p-3">
+            <div class="bg-white rounded-lg p-5 ">
+              <h2 class="text-2xl font-bold mb-2">{project.name}</h2>
+              <p class="text-gray-600 mb-5">{project.description}</p>
+              <div class="flex flex-wrap justify-center">
+                {project.technologies.map((technology, index) => (
+                  <span class="bg-gray-200 text-gray-700 rounded-full px-3 py-1 text-sm font-semibold mr-2 mb-2">
+                    {technology}
+                  </span>
+                ))}
+              </div>
+              <a
+                href={project.link}
+                target="_blank"
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-5 inline-block"
+              >
+                Ver proyecto
+              </a>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
