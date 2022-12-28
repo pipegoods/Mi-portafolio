@@ -2,7 +2,9 @@
 import "@fontsource/poppins";
 import SEO from "@julian_cataldo/astro-seo/SEO.astro";
 
-return Astro.redirect("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
+// window.onload = () => {
+//   return Astro.redirect("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
+// };
 ---
 
 <!DOCTYPE html>
@@ -35,5 +37,13 @@ return Astro.redirect("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
 
   <body class="bg-zinc-900">
     <main>KATALINA</main>
+
+    <script>
+      // redirect to url after load page
+      window.onload = () => {
+        return (window.location.href =
+          "https://www.youtube.com/watch?v=dQw4w9WgXcQ");
+      };
+    </script>
   </body>
 </html>
