@@ -5,8 +5,8 @@
 ## 🚀 Metas
 
 - [x] Banner principal
-- [ ] Tecnologias que manejo
-- [ ] Proyectos realizados
+- [x] Tecnologias que manejo
+- [x] Proyectos realizados
 - [ ] Testimonios
 - [ ] Experiencia
 - [ ] Contacto
