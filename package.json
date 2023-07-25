@@ -1,7 +1,7 @@
 {
   "name": "@pipegoods/portfolio",
+  "type": "module",
   "version": "0.0.1",
-  "private": true,
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
@@ -9,15 +9,7 @@
     "preview": "astro preview",
     "astro": "astro"
   },
-  "devDependencies": {
-    "@astrojs/tailwind": "^1.0.0",
-    "@astrojs/vercel": "^1.0.0",
-    "astro": "^1.0.5",
-    "prettier": "^2.7.1",
-    "prettier-plugin-astro": "^0.5.0"
-  },
   "dependencies": {
-    "@fontsource/poppins": "^4.5.9",
-    "@julian_cataldo/astro-seo": "^0.13.1"
+    "astro": "2.9.2"
   }
 }
