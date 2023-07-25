@@ -1,45 +1,71 @@
 ---
-import "@fontsource/poppins";
-import SEO from "@julian_cataldo/astro-seo/SEO.astro";
-export interface Props {
+import { SEO } from 'astro-seo';
+
+interface Props {
   title: string;
 }
 
-const { title } = Astro.props as Props;
+const { title } = Astro.props;
 ---
 
 <!DOCTYPE html>
-<html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-    <link rel="manifest" href="/site.webmanifest" />
-    <!-- Chrome, Firefox OS and Opera -->
-    <meta name="theme-color" content="#18181b" />
-    <!-- Windows Phone -->
-    <meta name="msapplication-navbutton-color" content="#18181b" />
-    <!-- iOS Safari -->
-    <meta name="apple-mobile-web-app-status-bar-style" content="#18181b" />
-    <meta name="generator" content={Astro.generator} />
-    <title>{title}</title>
-    <!-- Primary Meta Tags -->
-    <meta name="mobile-web-app-capable" content="yes" />
-    <SEO
-      image="/img/photo-andres-vizcaino.jpg"
-      title="Hola, soy Andrés Vizcaíno"
-      description="Desarrollador Web Full Stack con 2 años de experiencia en el desarrollo de aplicaciones web con React."
-      siteName="Andrés Vizcaíno - Desarrollador Web Full Stack"
-    />
-  </head>
+<html lang='es'>
+	<head>
+		<meta charset='UTF-8' />
+		<meta name='viewport' content='width=device-width' />
+		<meta name='generator' content={Astro.generator} />
+		<title>{title}</title>
 
-  <body class="bg-zinc-900">
-    <slot />
-    <script
-      src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"
-    ></script>
-  </body>
+		<link rel='icon' type='image/x-icon' href='/favicon.ico' />
+		<link
+			rel='apple-touch-icon'
+			sizes='180x180'
+			href='/apple-touch-icon.png'
+		/>
+		<link
+			rel='icon'
+			type='image/png'
+			sizes='32x32'
+			href='/favicon-32x32.png'
+		/>
+		<link
+			rel='icon'
+			type='image/png'
+			sizes='16x16'
+			href='/favicon-16x16.png'
+		/>
+		<link rel='manifest' href='/site.webmanifest' />
+
+		<meta name='theme-color' content='#18181b' />
+
+		<meta name='msapplication-navbutton-color' content='#18181b' />
+
+		<meta
+			name='apple-mobile-web-app-status-bar-style'
+			content='#18181b'
+		/>
+		<meta name='generator' content={Astro.generator} />
+
+		<meta name='mobile-web-app-capable' content='yes' />
+
+		<SEO
+			image='/photo-andres-vizcaino.jpg'
+			title='Hola, soy Andrés Vizcaíno'
+			description='Desarrollador Web Full Stack con 2 años de experiencia en el desarrollo de aplicaciones web con React.'
+			siteName='Andrés Vizcaíno - Desarrollador Web Full Stack'
+			twitter={{
+				creator: '@pipegoods',
+			}}
+		/>
+
+		<script
+			defer
+			src='https://unpkg.com/@tinybirdco/flock.js'
+			data-host='https://api.us-east.tinybird.co'
+			data-token='p.eyJ1IjogIjQ2Y2U4ZTJlLTNjZmQtNDE3Yy05MjUwLWRmYjBlYjAyZjQ5YSIsICJpZCI6ICI4ODcyZTI2ZS04YTdiLTQ2YTItYmFlNi04MGFjN2FlNDRkZTUifQ.iNHSDAqrTfdiSt0RFTjhQJE1sPXAwQfPflTLcNN9WQ8'
+		></script>
+	</head>
+	<body>
+		<slot />
+	</body>
 </html>
