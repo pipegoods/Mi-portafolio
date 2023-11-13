@@ -1,0 +1,91 @@
+---
+const projects = [
+	{
+		name: 'lpbcol-app',
+		description:
+            'Aplicación para la liga profesional de Beisbol de Colombia (Fines educativos)',
+		technologies: [
+			'TailwindCSS',
+			'Astro',
+			'Hono',
+			'Scraping Beb',
+			'Typescript',
+		],
+		link: 'https://github.com/pipegoods/lpbcol-app',
+	},
+	{
+		name: 'Chat Bot Tesis',
+		description:
+      'Chat bot con AI que te ayudará con tu tesis',
+		technologies: [
+			'TailwindCSS',
+			'React JS',
+			'Open AI API',
+		],
+		link: 'https://github.com/pipegoods/chatbot-tesis',
+	},
+	{
+		name: 'Pets Cédula',
+		description:
+      'Crea una cédula para tu mascota, genera un QR único para cada mascota',
+		technologies: [
+			'TailwindCSS',
+			'Next JS',
+			'Prisma ORM',
+			'PostgreSQL',
+			'Vercel',
+			'Typescript'
+		],
+		link: 'https://github.com/pipegoods/pets-cedula',
+	},
+	{
+		name: 'Whats me Fast',
+		description:
+      'Quienes chatear con alguien por whatsApp pero no quieres agregarlo a tus contactos, esta es tu app',
+		technologies: ['CSS', 'React JS', 'Local Storage', 'PostgreSQL', 'Vercel'],
+		link: 'https://github.com/pipegoods/whats-me-fast',
+	},
+	{
+		name: 'Mi Band estrés',
+		description:
+      'Proyecto de grado, una app para medir el estrés de una persona, con un sensor de frecuencia cardíaca utilizando el IOT - Xiaomi Mi band',
+		technologies: ['Firebase', 'React JS', 'Material UI', 'Firestore'],
+		link: 'https://github.com/pipegoods/labestres',
+	},
+	{
+		name: 'El Bicho App',
+		description:
+      'Video juego sobre el bicho (Cristiano Ronaldo), el cual debes anotar goles y obtener el mayor puntaje',
+		technologies: ['Firebase', 'Vue JS', 'CSS', 'HTML'],
+		link: 'https://github.com/pipegoods/ElBichoAPP',
+	},
+];
+---
+
+<section
+	id='projects'
+	class='grid min-h-screen place-content-center'
+>
+	<div class='flex items-center'>
+		<div
+			class='container mx-auto flex flex-col items-center justify-between px-6 py-4'
+		>
+			<h1 class='mb-8 text-3xl font-bold'>Mis Proyectos</h1>
+
+			<div class='grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3'>
+				{projects.map((project) => (
+					<div  class='rounded-md bg-white p-6 shadow-md transition-transform hover:scale-105'>
+						<h2 class='mb-4 text-xl font-bold'>{project.name}</h2>
+						<p class='mb-4 text-gray-600'>{project.description}</p>
+						<ul class='mb-4'>
+							{project.technologies.map((tech) => (
+								<li  class='mb-2 mr-2 inline-block rounded-full bg-gray-200 px-2 py-1 text-sm text-gray-700'>{tech}</li>
+							))}
+						</ul>
+						<a href={project.link} target='_blank' class='inline-block rounded-full bg-blue-500 px-4 py-2 text-white transition-colors hover:bg-blue-600'>Ver en GitHub</a>
+					</div>
+				))}
+			</div>
+		</div>
+	</div>
+</section>
