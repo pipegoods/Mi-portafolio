@@ -1,14 +1,18 @@
 ---
-import Header from '../components/Header.astro';
-import Hero from '../components/Hero.astro';
-import Layout from '../layouts/Layout.astro';
-import Projects from '../components/Projects.astro';
-import Contact from '../components/Contact.astro';
+import Header from "../components/Header.astro";
+import Hero from "../components/Hero.astro";
+import Layout from "../layouts/Layout.astro";
+import Projects from "../components/Projects.astro";
+import Experience from "../components/Experience.astro";
+import Footer from "../components/Footer.astro";
 ---
 
-<Layout title='Portafolio | Andrés Vizcaíno'>
-	<Header />
-	<Hero />
-	<Projects />
-	<Contact />
+<Layout title="Portafolio | Andrés Vizcaíno">
+  <Header />
+  <main class="mx-auto mt-24 flex max-w-2xl flex-col gap-12 p-4">
+    <Hero />
+    <Experience />
+    <Projects />
+  </main>
+  <Footer />
 </Layout>
