@@ -1,38 +1,37 @@
 {
-  "extends": [
-    "eslint:recommended",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:astro/recommended",
-    "plugin:tailwindcss/recommended"
-  ],
-  "overrides": [
-    {
-      "files": ["*.astro"],
-      "parser": "astro-eslint-parser",
-      "parserOptions": {
-        "parser": "@typescript-eslint/parser",
-        "extraFileExtensions": [".astro"]
-      }
-    }
-  ],
-  "plugins": ["@typescript-eslint"],
-  "parser": "@typescript-eslint/parser",
-  "rules": {
-    "no-unused-vars": "warn",
-    "no-var": "error",
-    "@typescript-eslint/no-unused-vars": [
-      "warn",
-      {
-        "argsIgnorePattern": "^_",
-        "varsIgnorePattern": "^_",
-        "caughtErrorsIgnorePattern": "^_"
-      }
-    ],
-    "no-multiple-empty-lines": "off",
-    "no-tabs": "off",
-    "indent": ["warn", "tab"],
-    "quotes": ["warn", "single"],
-    "jsx-quotes": ["warn", "prefer-single"],
-    "eol-last": "off"
-  }
+	"extends": [
+		"eslint:recommended",
+		"plugin:@typescript-eslint/recommended",
+		"plugin:astro/recommended",
+		"plugin:tailwindcss/recommended"
+	],
+	"overrides": [
+		{
+			"files": ["*.astro"],
+			"parser": "astro-eslint-parser",
+			"parserOptions": {
+				"parser": "@typescript-eslint/parser",
+				"extraFileExtensions": [".astro"]
+			}
+		}
+	],
+	"plugins": ["@typescript-eslint"],
+	"parser": "@typescript-eslint/parser",
+	"rules": {
+		"no-unused-vars": "warn",
+		"no-var": "error",
+		"@typescript-eslint/no-unused-vars": [
+			"warn",
+			{
+				"argsIgnorePattern": "^_",
+				"varsIgnorePattern": "^_",
+				"caughtErrorsIgnorePattern": "^_"
+			}
+		],
+		"no-multiple-empty-lines": "off",
+		"no-tabs": "off",
+		"quotes": ["warn", "double"],
+		"jsx-quotes": ["warn", "prefer-double"],
+		"eol-last": "off"
+	}
 }

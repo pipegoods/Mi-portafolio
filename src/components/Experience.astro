@@ -1,0 +1,127 @@
+---
+import LocationMap from "./icons/LocationMap.astro";
+interface experienceType {
+  companyName: string;
+  location: string;
+  roles: {
+    roleName: string;
+    tasks: string[];
+    stack: string[];
+    startDate: string;
+    endDate: string;
+  }[];
+}
+
+const experiences: experienceType[] = [
+  {
+    companyName: "igloolab",
+    location: "Cali, Colombia",
+    roles: [
+      {
+        roleName: "Full Stack Web Developer",
+        tasks: [
+          "Dirigí la planificación y ejecución de proyectos web, enfocándome en la optimización de procesos y la reducción de costos, logrando mejoras significativas en eficiencia y calidad.",
+          "Optimicé despliegues de aplicaciones en producción, reduciendo costos mediante la evaluación y mejora de procesos.",
+        ],
+        stack: [
+          "Next JS",
+          "React",
+          "Tailwind CSS",
+          "Node JS",
+          "Drupal",
+          "Wordpress",
+          "Go",
+          "API REST",
+          "TypeScript",
+          "PostgreSQL",
+        ],
+        startDate: "Sep. 2022",
+        endDate: "Act",
+      },
+      {
+        roleName: "Web Developer",
+        tasks: [
+          "Desarrollé Front-End con React JS, encargándome de la maquetación y despliegue de plataformas web.",
+        ],
+        stack: ["HTML", "React", "JavaScript", "Digital Ocean", "Mongo DB"],
+        startDate: "Sep. 2021",
+        endDate: "Sep. 2022",
+      },
+      {
+        roleName: "Web Master",
+        tasks: [
+          "Administré y mantuve los sitios web corporativos, asegurando su rendimiento, seguridad y disponibilidad.",
+          "Actualicé y optimicé el contenido en plataformas CMS como WordPress y Drupal.",
+          "Implementé mejoras en la interfaz y en el posicionamiento SEO para aumentar la visibilidad de los sitios.",
+        ],
+        stack: ["WordPress", "Drupal", "HTML", "CSS", "JavaScript"],
+        startDate: "Abr. 2021",
+        endDate: "Sep. 2021",
+      },
+    ],
+  },
+  {
+    companyName: "Sima",
+    location: "Cartagena, Colombia",
+    roles: [
+      {
+        roleName: "Web Master",
+        tasks: [
+          "Creación de sitios web en Wordpress para pymes.",
+          "Manejo de hosting en CPanel y Linux.",
+        ],
+        stack: ["WordPress", "HTML", "Hosting Web"],
+        startDate: "May. 2020",
+        endDate: "Abr. 2021",
+      },
+    ],
+  },
+];
+---
+
+<section id="experience" class="scroll-mt-24">
+  <div class="flex items-center">
+    <div class="container mx-auto flex flex-col justify-between">
+      <h1 class="mb-8 text-2xl font-semibold">Experiencia</h1>
+      <ul class="flex flex-col gap-12">
+        {
+          experiences.map((exp: experienceType) => (
+            <li class="flex flex-col gap-8 rounded-sm">
+              <div class="flex flex-1 flex-col gap-6">
+                <header class="flex justify-between">
+                  <h2 class="text-xl font-semibold text-blue-900">
+                    {exp.companyName}
+                  </h2>
+                  <span class="flex items-center gap-1 text-gray-500">
+                    <LocationMap />
+                    {exp.location}
+                  </span>
+                </header>
+                <ul class="flex flex-col gap-6">
+                  {exp.roles.map((role) => (
+                    <li class="flex flex-col gap-4 border-b border-b-gray-300 pb-2">
+                      <header class="flex justify-between text-gray-600">
+                        <p class="font-semibold">{role.roleName}</p>
+                        <p>
+                          {role.startDate} - {role.endDate}
+                        </p>
+                      </header>
+                      <ul class="flex list-inside list-disc flex-col flex-wrap gap-2">
+                        {role.tasks.map((task) => (
+                          <li class="text-gray-700">{task}</li>
+                        ))}
+                      </ul>
+                      <p class="text-sm text-gray-600">
+                        {role.stack.join(" | ")}
+                      </p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</section>
