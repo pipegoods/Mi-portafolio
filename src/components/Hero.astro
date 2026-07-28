@@ -1,4 +1,7 @@
 ---
+import { es } from "../data/es.ts";
+
+const { about, stack } = es.profile;
 ---
 
 <section id="trabajo" class="relative scroll-mt-8 py-14 lg:pt-24">
@@ -7,24 +10,10 @@
   <p class="eyebrow reveal">Sobre mí</p>
 
   <div class="reveal mt-6 flex max-w-xl flex-col gap-4 text-lg text-graphite">
-    <p>
-      Soy un desarrollador full stack cartagenero. Llevo seis años en igloolab
-      construyendo plataformas para eventos científicos: e-learnings,
-      transmisiones en vivo, juegos para congresos y tótems que funcionan con
-      botones físicos.
-    </p>
-    <p>
-      Trabajo el proyecto completo: levanto el requerimiento con el cliente, lo
-      construyo y me encargo del servidor. Ahora lidero una herramienta de apoyo
-      diagnóstico con IA para médicos generales.
-    </p>
-    <p>
-      Por fuera del trabajo hago mis propias apps, casi siempre para resolverme
-      un problema.
-    </p>
+    {about.map((paragraph) => <p>{paragraph}</p>)}
   </div>
 
   <p class="reveal mt-8 font-mono text-sm text-graphite">
-    Next JS · TypeScript · Prisma · Supabase · React Native
+    {stack.join(" · ")}
   </p>
 </section>

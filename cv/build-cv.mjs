@@ -1,6 +1,7 @@
-// Convierte cv/cv.md en public/cv-andres-vizcaino.pdf.
+// Genera public/cv-andres-vizcaino.pdf desde src/data/es.ts.
 //
-// El Markdown es la fuente de la verdad: se edita cv.md y se corre `pnpm cv`.
+// La fuente de la verdad es src/data, la misma que alimenta el sitio; cv/cv.md
+// es una salida intermedia que se escribe solo para poder leerla.
 // El render usa Chrome en modo headless, así que no hace falta LaTeX ni pandoc.
 //
 // Estilo: Jake's Resume — una sola columna, secciones con línea, sin tablas ni
@@ -14,6 +15,9 @@ import { fileURLToPath } from "node:url";
 
 import { marked } from "marked";
 
+import { es } from "../src/data/es.ts";
+import { toMarkdown } from "./to-markdown.mjs";
+
 const here = dirname(fileURLToPath(import.meta.url));
 const root = resolve(here, "..");
 
@@ -21,7 +25,11 @@ const CHROME =
   process.env.CHROME_PATH ??
   "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
 
-const source = readFileSync(join(here, "cv.md"), "utf8");
+// El Markdown se genera desde src/data y se deja en disco para poder leerlo,
+// pero no se edita a mano: la fuente de la verdad es src/data/es.ts.
+const source = toMarkdown(es);
+writeFileSync(join(here, "cv.md"), `${source}\n`, "utf8");
+
 const body = marked.parse(source, { async: false });
 
 // La tipografía se puede cambiar sin tocar el resto: CV_FONT elige la pila y
@@ -29,7 +37,7 @@ const body = marked.parse(source, { async: false });
 // Cada pila trae su cuerpo: Times es mucho más estrecha que Charter o
 // Helvetica, así que al mismo tamaño unas caben en una página y otras no.
 const FONTS = {
-  calibri: { stack: "Carlito, Calibri, sans-serif", size: 9.6, embed: true },
+  calibri: { stack: "Carlito, Calibri, sans-serif", size: 9.3, embed: true },
   charter: { stack: '"Charter", "Bitstream Charter", Georgia, serif', size: 9 },
   georgia: { stack: 'Georgia, "Times New Roman", serif', size: 8.8 },
   times: { stack: '"Times New Roman", Times, serif', size: 9.7 },
@@ -72,7 +80,7 @@ const html = `<!doctype html>
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<title>Andrés Felipe Vizcaíno Salazar — CV</title>
+<title>${es.profile.fullName} — CV</title>
 <style>
 ${fontFaces}
 
@@ -118,13 +126,14 @@ ${fontFaces}
     text-transform: uppercase;
   }
 
-  /* Empresa / proyecto / institución */
+  /* Empresa / proyecto / institución. En em, para que escalen con el
+     cuerpo al cambiar de tipografía. */
   h3 {
     display: flex;
     justify-content: space-between;
     gap: 12pt;
     margin: 5pt 0 0;
-    font-size: 10.1pt;
+    font-size: 1.05em;
     font-weight: bold;
   }
 
@@ -134,7 +143,7 @@ ${fontFaces}
     justify-content: space-between;
     gap: 12pt;
     margin: 1pt 0 2pt;
-    font-size: 10.2pt;
+    font-size: 1em;
     font-style: italic;
     font-weight: normal;
   }

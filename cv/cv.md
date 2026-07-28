@@ -38,18 +38,18 @@
 
 ### Dogesti — Sistema de operación para pymes <span>[dogesti.com](https://dogesti.com)</span>
 
-- Una pyme opera todo en un solo sistema: inventario por sede, punto de venta y facturación electrónica ante la DIAN. Multi-tenant: un usuario puede manejar varias empresas.
-- **Tecnologías:** Next.js, Supabase, PostgreSQL, Tailwind CSS, TypeScript.
+- Una pyme opera todo en un solo sistema: inventario por sede, punto de venta y facturación electrónica ante la DIAN. Un mismo usuario puede manejar varias empresas.
+- **Tecnologías:** Next JS, Supabase, Tailwind CSS, shadcn/ui, TypeScript.
 
 ### Viatro — Legalización de gastos de viaje
 
-- Cada evento lleva sus movimientos por categoría, con el soporte adjunto y la factura escaneada por QR. Lo construí para resolver mi propia necesidad al viajar a eventos.
-- **Tecnologías:** Next.js, Prisma, PostgreSQL, Clerk, AWS S3, PWA.
+- Legalizar gastos de viaje sin perseguir recibos: cada evento lleva sus movimientos por categoría, con el soporte adjunto y la factura escaneada por QR. La construí porque viajo a eventos y me tocaba hacerlo a mano.
+- **Tecnologías:** Next JS, Prisma, PostgreSQL, Clerk, AWS S3, PWA.
 
 ### Artemis II Tracker — Visualización 3D de la misión de la NASA <span>[github.com/pipegoods/artemis-ii-tracker](https://github.com/pipegoods/artemis-ii-tracker)</span>
 
-- Seguimiento en 3D de la nave Orion rumbo a la Luna, con la trayectoria real publicada por el JPL. Todo en un único archivo HTML.
-- **Tecnologías:** Three.js, WebGL, JavaScript.
+- La nave Orion rumbo a la Luna y de vuelta, en 3D y con la trayectoria real del JPL de la NASA. Cabe en un solo archivo HTML.
+- **Tecnologías:** Three.js, WebGL, JavaScript, Datos del JPL.
 
 ## Habilidades
 
@@ -58,8 +58,13 @@
 - **Datos e infraestructura:** PostgreSQL, Prisma, Supabase, MongoDB, Docker, Digital Ocean, Vercel, Azure, Netlify.
 - **Otros:** RAG y modelos multimodales, API REST, Arduino, Git, Scrum.
 
+## Idiomas
+
+**Español:** nativo · **Inglés:** B2 en lectura y escucha, B1 conversacional.
+
 ## Educación
 
 ### Universidad de Cartagena, Colombia <span>Dic. 2022</span>
 
 Ingeniería de Sistemas
+

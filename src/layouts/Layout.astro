@@ -3,6 +3,7 @@ import { SEO } from "astro-seo";
 
 import Footer from "../components/Footer.astro";
 import Rail from "../components/Rail.astro";
+import { es } from "../data/es.ts";
 import "../styles/global.css";
 
 interface Props {
@@ -10,13 +11,13 @@ interface Props {
 }
 
 const { title } = Astro.props;
+const profile = es.profile;
 
-// Fecha de inicio de la carrera (Sima, Web Master). Los años se calculan en
-// cada build para que la descripción no quede desactualizada.
-const CAREER_START = new Date("2020-05-01");
+// Los años se calculan en cada build desde el inicio de la carrera, para que
+// la descripción no quede desactualizada.
 const MS_PER_YEAR = 365.25 * 24 * 60 * 60 * 1000;
 const yearsOfExperience = Math.floor(
-  (Date.now() - CAREER_START.getTime()) / MS_PER_YEAR,
+  (Date.now() - new Date(profile.careerStart).getTime()) / MS_PER_YEAR,
 );
 
 const description = `Desarrollador full stack en Cali, Colombia. Llevo ${yearsOfExperience} años construyendo plataformas para eventos científicos: e-learnings, transmisiones en vivo y tótems interactivos para congresos.`;
@@ -30,21 +31,22 @@ const jsonLd = {
   "@type": "ProfilePage",
   mainEntity: {
     "@type": "Person",
-    name: "Andrés Vizcaíno",
-    jobTitle: "Full Stack Developer",
+    name: profile.name,
+    jobTitle: profile.title,
     description,
     image: photoUrl,
     url: Astro.site?.href,
-    worksFor: { "@type": "Organization", name: "igloolab" },
+    worksFor: {
+      "@type": "Organization",
+      name: es.experience[0].name,
+    },
     address: {
       "@type": "PostalAddress",
-      addressLocality: "Cali",
+      addressLocality: profile.location.split(",")[0],
       addressCountry: "CO",
     },
-    sameAs: [
-      "https://github.com/pipegoods",
-      "https://www.linkedin.com/in/andres-vizcaino-salazar/",
-    ],
+    knowsLanguage: es.languages.map((l) => l.name),
+    sameAs: [profile.github, profile.linkedin],
   },
 };
 ---

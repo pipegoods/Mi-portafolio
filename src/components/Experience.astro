@@ -1,92 +1,7 @@
 ---
-interface experienceType {
-  companyName: string;
-  location: string;
-  roles: {
-    roleName: string;
-    tasks: string[];
-    stack: string[];
-    startDate: string;
-    endDate: string;
-  }[];
-}
+import { es } from "../data/es.ts";
 
-const experiences: experienceType[] = [
-  {
-    companyName: "igloolab",
-    location: "Cali, Colombia",
-    roles: [
-      {
-        roleName: "Full Stack Web Developer",
-        tasks: [
-          "Lidero el desarrollo de plataformas para eventos científicos de laboratorios farmacéuticos globales, con e-learnings de hasta 1.000 usuarios inscritos y transmisiones en vivo de 300 asistentes simultáneos.",
-          "Construí y lideré juegos y experiencias interactivas (trivias, ruletas, escape rooms) usadas en congresos, tanto en web como en tótems digitales en eventos presenciales.",
-          "Automaticé la generación de escarapelas, reduciendo de días a minutos un proceso que antes era manual para el equipo de diseño.",
-          "Lidero actualmente el desarrollo de una herramienta de soporte diagnóstico dermatológico para médicos generales, que combina RAG sobre literatura médica con análisis de imágenes mediante modelos multimodales.",
-          "Desarrollé una plataforma de análisis de emociones aplicada a eventos.",
-          "Levanto requerimientos directamente con el cliente y acompaño el proyecto de principio a fin, desde la definición hasta la entrega en producción.",
-          "Entrego cerca de 3 proyectos al mes y hago también el DevOps: administro los servidores y respondo por la estabilidad en Digital Ocean, Vercel, Netlify y Azure.",
-          "Integré electrónica en experiencias presenciales, conectando botones físicos y sensores con Arduino a aplicaciones de kiosco para tótems de eventos.",
-        ],
-        stack: [
-          "Next JS",
-          "React",
-          "TypeScript",
-          "Tailwind CSS",
-          "Node JS",
-          "Python",
-          "FastAPI",
-          "Prisma",
-          "Supabase",
-          "PostgreSQL",
-          "Docker",
-          "Digital Ocean",
-          "Vercel",
-          "Azure",
-          "Arduino",
-        ],
-        startDate: "Sep. 2022",
-        endDate: "Actualidad",
-      },
-      {
-        roleName: "Web Developer",
-        tasks: [
-          "Desarrollé Front-End con React JS, encargándome de la maquetación y despliegue de plataformas web.",
-        ],
-        stack: ["HTML", "React", "JavaScript", "Digital Ocean", "Mongo DB"],
-        startDate: "Sep. 2021",
-        endDate: "Sep. 2022",
-      },
-      {
-        roleName: "Web Master",
-        tasks: [
-          "Administré y mantuve los sitios web corporativos, asegurando su rendimiento, seguridad y disponibilidad.",
-          "Actualicé y optimicé el contenido en plataformas CMS como WordPress y Drupal.",
-          "Implementé mejoras en la interfaz y en el posicionamiento SEO para aumentar la visibilidad de los sitios.",
-        ],
-        stack: ["WordPress", "Drupal", "HTML", "CSS", "JavaScript"],
-        startDate: "Abr. 2021",
-        endDate: "Sep. 2021",
-      },
-    ],
-  },
-  {
-    companyName: "Sima",
-    location: "Cartagena, Colombia",
-    roles: [
-      {
-        roleName: "Web Master",
-        tasks: [
-          "Creación de sitios web en Wordpress para pymes.",
-          "Manejo de hosting en CPanel y Linux.",
-        ],
-        stack: ["WordPress", "HTML", "Hosting Web"],
-        startDate: "May. 2020",
-        endDate: "Abr. 2021",
-      },
-    ],
-  },
-];
+const experiences = es.experience;
 ---
 
 <section id="experiencia" class="relative scroll-mt-8 py-14">
@@ -99,7 +14,7 @@ const experiences: experienceType[] = [
       experiences.map((exp) => (
         <li class="reveal">
           <header class="flex flex-wrap items-baseline justify-between gap-2">
-            <h3 class="display text-xl md:text-2xl">{exp.companyName}</h3>
+            <h3 class="display text-xl md:text-2xl">{exp.name}</h3>
             <p class="font-mono text-xs text-graphite">{exp.location}</p>
           </header>
 
@@ -107,7 +22,7 @@ const experiences: experienceType[] = [
             {exp.roles.map((role) => (
               <li class="border-t border-hairline py-6">
                 <header class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-                  <h4 class="font-semibold">{role.roleName}</h4>
+                  <h4 class="font-semibold">{role.title}</h4>
                   <p class="font-mono text-xs text-graphite">
                     {role.startDate} — {role.endDate}
                   </p>

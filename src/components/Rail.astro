@@ -1,4 +1,5 @@
 ---
+import { es } from "../data/es.ts";
 import Download from "./icons/Download.astro";
 import Github from "./icons/Github.astro";
 import Linkedin from "./icons/Linkedin.astro";
@@ -8,6 +9,7 @@ interface Props {
 }
 
 const { yearsOfExperience } = Astro.props;
+const { name, title, location, github, linkedin } = es.profile;
 
 const sections = [
   { href: "#trabajo", label: "Qué construyo" },
@@ -17,13 +19,11 @@ const sections = [
 
 const links = [
   { href: "/cv-andres-vizcaino.pdf", label: "Curriculum", Icon: Download },
-  { href: "https://github.com/pipegoods", label: "GitHub", Icon: Github },
-  {
-    href: "https://www.linkedin.com/in/andres-vizcaino-salazar/",
-    label: "LinkedIn",
-    Icon: Linkedin,
-  },
+  { href: github, label: "GitHub", Icon: Github },
+  { href: linkedin, label: "LinkedIn", Icon: Linkedin },
 ];
+
+const [firstName, ...lastNames] = name.split(" ");
 ---
 
 <aside
@@ -32,7 +32,7 @@ const links = [
   <div class="flex flex-col gap-6">
     <img
       src="/photo-andres-vizcaino.jpg"
-      alt="Foto de perfil de Andrés Vizcaíno"
+      alt={`Foto de perfil de ${name}`}
       width="72"
       height="72"
       class="size-18 rounded-full border border-hairline object-cover"
@@ -40,13 +40,11 @@ const links = [
     />
 
     <div class="flex flex-col gap-3">
-      <p class="eyebrow" data-rail-item>Cali, Colombia</p>
+      <p class="eyebrow" data-rail-item>{location}</p>
       <h1 class="display text-4xl md:text-5xl" data-rail-item>
-        Andrés<br />Vizcaíno
+        {firstName}<br />{lastNames.join(" ")}
       </h1>
-      <p class="font-mono text-sm text-graphite" data-rail-item>
-        Full Stack Developer
-      </p>
+      <p class="font-mono text-sm text-graphite" data-rail-item>{title}</p>
     </div>
 
     <p
