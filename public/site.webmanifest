@@ -1,6 +1,7 @@
 {
-  "name": "Andrés Vizcaíno",
-  "short_name": "AV's Dev",
+  "name": "Andrés Vizcaíno — Full Stack Developer",
+  "short_name": "A. Vizcaíno",
+  "lang": "es",
   "icons": [
     {
       "src": "/android-chrome-192x192.png",
@@ -13,7 +14,8 @@
       "type": "image/png"
     }
   ],
-  "theme_color": "#18181b",
-  "background_color": "#18181b",
-  "display": "standalone"
+  "theme_color": "#f2f6f5",
+  "background_color": "#f2f6f5",
+  "display": "standalone",
+  "start_url": "/"
 }

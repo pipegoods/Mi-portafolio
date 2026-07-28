@@ -32,7 +32,8 @@ const jsonLd = {
     jobTitle: profile.title,
     description,
     image: photoUrl,
-    url: Astro.site?.href,
+    // La URL de esta página, no la del sitio: en /en/ deben diferir.
+    url: Astro.url.href,
     worksFor: {
       "@type": "Organization",
       name: data.experience[0].name,
@@ -96,10 +97,13 @@ const alternates = [
           image: photoUrl,
           title: ui.ogTitle,
           type: "website",
-          url: profile.site,
+          url: Astro.url.href,
         },
         image: {
           alt: t(ui.photoAlt, { name: profile.name }),
+        },
+        optional: {
+          locale: ui.locale === "es" ? "es_CO" : "en_US",
         },
       }}
       title={ui.ogTitle}
