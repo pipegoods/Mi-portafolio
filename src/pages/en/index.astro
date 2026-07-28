@@ -1,0 +1,15 @@
+---
+import Experience from "../../components/Experience.astro";
+import Hero from "../../components/Hero.astro";
+import Projects from "../../components/Projects.astro";
+import { getData } from "../../data/index.ts";
+import Layout from "../../layouts/Layout.astro";
+
+const data = getData("en");
+---
+
+<Layout data={data}>
+  <Hero data={data} />
+  <Experience data={data} />
+  <Projects data={data} />
+</Layout>

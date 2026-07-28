@@ -1,13 +1,18 @@
 ---
-import { es } from "../data/es.ts";
+import type { CvData } from "../data/types.ts";
 
-const experiences = es.experience;
+interface Props {
+  data: CvData;
+}
+
+const { data } = Astro.props;
+const experiences = data.experience;
 ---
 
 <section id="experiencia" class="relative scroll-mt-8 py-14">
   <span class="node top-[4.1rem] -left-8 -translate-x-1/2" data-node></span>
 
-  <p class="eyebrow reveal">Experiencia</p>
+  <p class="eyebrow reveal">{data.ui.sections.experience}</p>
 
   <ul class="mt-10 flex flex-col gap-16">
     {

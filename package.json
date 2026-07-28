@@ -10,7 +10,7 @@
     "preview": "astro preview",
     "astro": "astro",
     "lint": "eslint .",
-    "cv": "node cv/build-cv.mjs"
+    "cv": "node cv/build-cv.mjs && CV_LOCALE=en node cv/build-cv.mjs"
   },
   "dependencies": {
     "@fontsource-variable/archivo": "5.3.0",

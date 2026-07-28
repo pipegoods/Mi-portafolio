@@ -3,24 +3,21 @@ import { SEO } from "astro-seo";
 
 import Footer from "../components/Footer.astro";
 import Rail from "../components/Rail.astro";
-import { es } from "../data/es.ts";
+import { t, yearsOfExperience } from "../data/index.ts";
+import type { CvData } from "../data/types.ts";
 import "../styles/global.css";
 
 interface Props {
-  title: string;
+  data: CvData;
 }
 
-const { title } = Astro.props;
-const profile = es.profile;
+const { data } = Astro.props;
+const { ui, profile } = data;
 
 // Los años se calculan en cada build desde el inicio de la carrera, para que
 // la descripción no quede desactualizada.
-const MS_PER_YEAR = 365.25 * 24 * 60 * 60 * 1000;
-const yearsOfExperience = Math.floor(
-  (Date.now() - new Date(profile.careerStart).getTime()) / MS_PER_YEAR,
-);
-
-const description = `Desarrollador full stack en Cali, Colombia. Llevo ${yearsOfExperience} años construyendo plataformas para eventos científicos: e-learnings, transmisiones en vivo y tótems interactivos para congresos.`;
+const years = yearsOfExperience(profile.careerStart);
+const description = t(ui.metaDescription, { years });
 
 // Las URLs de Open Graph deben ser absolutas para que las redes sociales
 // puedan renderizar la vista previa.
@@ -38,26 +35,34 @@ const jsonLd = {
     url: Astro.site?.href,
     worksFor: {
       "@type": "Organization",
-      name: es.experience[0].name,
+      name: data.experience[0].name,
     },
     address: {
       "@type": "PostalAddress",
       addressLocality: profile.location.split(",")[0],
       addressCountry: "CO",
     },
-    knowsLanguage: es.languages.map((l) => l.name),
+    knowsLanguage: data.languages.map((l) => l.name),
     sameAs: [profile.github, profile.linkedin],
   },
 };
+
+// hreflang: le dice a Google que las dos páginas son la misma en otro idioma,
+// para que no compitan entre sí en los resultados.
+const alternates = [
+  { hreflang: "es", href: new URL("/", Astro.site).href },
+  { hreflang: "en", href: new URL("/en/", Astro.site).href },
+  { hreflang: "x-default", href: new URL("/", Astro.site).href },
+];
 ---
 
 <!doctype html>
-<html lang="es" class="scroll-smooth">
+<html lang={ui.locale} class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
-    <title>{title}</title>
+    <title>{ui.pageTitle}</title>
 
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
@@ -73,6 +78,12 @@ const jsonLd = {
 
     <meta name="mobile-web-app-capable" content="yes" />
 
+    {
+      alternates.map(({ hreflang, href }) => (
+        <link rel="alternate" hreflang={hreflang} href={href} />
+      ))
+    }
+
     {/* Marca el documento antes del primer render para que los estados
     iniciales de las animaciones solo apliquen si hay JavaScript. */}
     <script is:inline>
@@ -83,15 +94,15 @@ const jsonLd = {
       openGraph={{
         basic: {
           image: photoUrl,
-          title: "Hola, soy Andrés Vizcaíno",
+          title: ui.ogTitle,
           type: "website",
-          url: "https://andresvizcaino.com",
+          url: profile.site,
         },
         image: {
-          alt: "Foto de perfil de Andrés Vizcaíno",
+          alt: t(ui.photoAlt, { name: profile.name }),
         },
       }}
-      title="Hola, soy Andrés Vizcaíno"
+      title={ui.ogTitle}
       description={description}
       twitter={{
         card: "summary_large_image",
@@ -116,7 +127,7 @@ const jsonLd = {
     <div
       class="mx-auto grid max-w-6xl px-6 lg:grid-cols-[17rem_1fr] lg:gap-20 lg:px-10"
     >
-      <Rail yearsOfExperience={yearsOfExperience} />
+      <Rail data={data} />
 
       <main class="relative pl-8">
         {/* La traza: la señal recorre la página al hacer scroll. */}
@@ -125,7 +136,7 @@ const jsonLd = {
         </div>
 
         <slot />
-        <Footer />
+        <Footer data={data} />
       </main>
     </div>
 

@@ -3,6 +3,37 @@ import type { CvData } from "./types.ts";
 // Fuente única de verdad: de aquí salen tanto las secciones del sitio como
 // el CV en PDF. Editar en un solo lugar evita que las dos versiones diverjan.
 export const es: CvData = {
+  ui: {
+    locale: "es",
+    nav: {
+      about: "Qué construyo",
+      experience: "Experiencia",
+      projects: "Proyectos",
+    },
+    sections: {
+      about: "Sobre mí",
+      experience: "Experiencia",
+      projects: "Proyectos",
+    },
+    yearsInProduction: "{years} años en producción",
+    resume: "Curriculum",
+    backToTop: "Volver arriba",
+    viewOnGithub: "Ver en GitHub",
+    photoAlt: "Foto de perfil de {name}",
+    pageTitle: "Andrés Vizcaíno | Full Stack Developer",
+    ogTitle: "Hola, soy Andrés Vizcaíno",
+    metaDescription:
+      "Desarrollador full stack en Cali, Colombia. Llevo {years} años construyendo plataformas para eventos científicos: e-learnings, transmisiones en vivo y tótems interactivos para congresos.",
+    cv: {
+      experience: "Experiencia",
+      projects: "Proyectos",
+      skills: "Habilidades",
+      languages: "Idiomas",
+      education: "Educación",
+    },
+    switchTo: { href: "/en/", label: "English" },
+  },
+
   profile: {
     name: "Andrés Vizcaíno",
     fullName: "Andrés Vizcaíno Salazar",

@@ -15,7 +15,7 @@ import { fileURLToPath } from "node:url";
 
 import { marked } from "marked";
 
-import { es } from "../src/data/es.ts";
+import { getData } from "../src/data/index.ts";
 import { toMarkdown } from "./to-markdown.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
@@ -27,8 +27,12 @@ const CHROME =
 
 // El Markdown se genera desde src/data y se deja en disco para poder leerlo,
 // pero no se edita a mano: la fuente de la verdad es src/data/es.ts.
-const source = toMarkdown(es);
-writeFileSync(join(here, "cv.md"), `${source}\n`, "utf8");
+const locale = process.env.CV_LOCALE ?? "es";
+const data = getData(locale);
+
+const source = toMarkdown(data);
+const mdName = locale === "es" ? "cv.md" : `cv.${locale}.md`;
+writeFileSync(join(here, mdName), `${source}\n`, "utf8");
 
 const body = marked.parse(source, { async: false });
 
@@ -76,11 +80,11 @@ const fontFaces = font.embed ? embedCarlito() : "";
 
 // Fuentes del sistema: el PDF debe abrirse igual en cualquier máquina y los
 // parsers de ATS prefieren tipografías estándar.
-const html = `<!doctype html>
-<html lang="es">
+const html = (size) => `<!doctype html>
+<html lang="${locale}">
 <head>
 <meta charset="utf-8">
-<title>${es.profile.fullName} — CV</title>
+<title>${data.profile.fullName} — CV</title>
 <style>
 ${fontFaces}
 
@@ -91,7 +95,7 @@ ${fontFaces}
   body {
     margin: 0;
     font-family: ${fontStack};
-    font-size: ${fontSize}pt;
+    font-size: ${size}pt;
     line-height: 1.26;
     color: #000;
   }
@@ -170,12 +174,14 @@ ${body}
 
 const tmp = mkdtempSync(join(tmpdir(), "cv-"));
 const htmlPath = join(tmp, "cv.html");
-const out =
-  process.env.CV_OUT ?? join(root, "public", "cv-andres-vizcaino.pdf");
+const defaultOut =
+  locale === "es"
+    ? "cv-andres-vizcaino.pdf"
+    : `cv-andres-vizcaino-${locale}.pdf`;
+const out = process.env.CV_OUT ?? join(root, "public", defaultOut);
 
-writeFileSync(htmlPath, html, "utf8");
-
-try {
+function render(size) {
+  writeFileSync(htmlPath, html(size), "utf8");
   execFileSync(
     CHROME,
     [
@@ -187,7 +193,23 @@ try {
     ],
     { stdio: "pipe" },
   );
-  console.log(`✓ ${out}`);
+  const pdf = readFileSync(out).toString("latin1");
+  return (pdf.match(/\/Type\s*\/Page[^s]/g) ?? []).length;
+}
+
+// El CV debe caber en una página. En vez de calibrar el cuerpo a mano cada vez
+// que cambia el contenido o el idioma, se baja el tamaño hasta que entre.
+try {
+  let size = fontSize;
+  let pages = render(size);
+
+  while (pages > 1 && size > 7.5) {
+    size = Math.round((size - 0.2) * 10) / 10;
+    pages = render(size);
+  }
+
+  const note = size === fontSize ? "" : ` (ajustado a ${size}pt)`;
+  console.log(`✓ ${out} — ${pages} página(s)${note}`);
 } finally {
   rmSync(tmp, { recursive: true, force: true });
 }

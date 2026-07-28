@@ -1,6 +1,12 @@
 ---
+import type { CvData } from "../data/types.ts";
 import ChevronUp from "./icons/ChevronUp.astro";
 
+interface Props {
+  data: CvData;
+}
+
+const { data } = Astro.props;
 const year = new Date().getFullYear();
 ---
 
@@ -10,7 +16,7 @@ const year = new Date().getFullYear();
   <span class="node top-[-5px] -left-8 -translate-x-1/2" data-node></span>
 
   <p class="font-mono text-xs text-graphite">
-    © {year} Andrés Vizcaíno · Cali, Colombia
+    © {year} {data.profile.name} · {data.profile.location}
   </p>
 
   <a
@@ -18,6 +24,6 @@ const year = new Date().getFullYear();
     class="inline-flex items-center gap-2 font-mono text-xs text-graphite transition-colors hover:text-signal"
   >
     <ChevronUp />
-    Volver arriba
+    {data.ui.backToTop}
   </a>
 </footer>

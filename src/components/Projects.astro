@@ -1,13 +1,18 @@
 ---
-import { es } from "../data/es.ts";
+import type { CvData } from "../data/types.ts";
 
-const projects = es.projects;
+interface Props {
+  data: CvData;
+}
+
+const { data } = Astro.props;
+const projects = data.projects;
 ---
 
 <section id="proyectos" class="relative scroll-mt-8 py-14">
   <span class="node top-[4.1rem] -left-8 -translate-x-1/2" data-node></span>
 
-  <p class="eyebrow reveal">Proyectos</p>
+  <p class="eyebrow reveal">{data.ui.sections.projects}</p>
 
   <ul class="mt-10 grid gap-px border border-hairline bg-hairline sm:grid-cols-2">
     {
@@ -18,7 +23,7 @@ const projects = es.projects;
               href={project.link}
               target="_blank"
               rel="noopener"
-              aria-label={`${project.linkLabel ?? "Ver en GitHub"}: ${project.name}`}
+              aria-label={`${project.linkLabel ?? data.ui.viewOnGithub}: ${project.name}`}
               class="absolute inset-0 z-10"
             />
           )}
@@ -40,7 +45,7 @@ const projects = es.projects;
 
           {project.link && (
             <p class="font-mono text-xs text-signal">
-              {project.linkLabel ?? "Ver en GitHub"} →
+              {project.linkLabel ?? data.ui.viewOnGithub} →
             </p>
           )}
         </li>

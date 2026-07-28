@@ -63,7 +63,38 @@ export interface Profile {
   stack: string[];
 }
 
+/** Textos de interfaz. Separados del contenido para poder traducirlos aparte. */
+export interface Ui {
+  /** Código del idioma para el atributo lang y las URLs. */
+  locale: string;
+  /** Etiquetas de navegación y encabezados de sección. */
+  nav: { about: string; experience: string; projects: string };
+  sections: { about: string; experience: string; projects: string };
+  /** Admite el marcador {years}. */
+  yearsInProduction: string;
+  resume: string;
+  backToTop: string;
+  viewOnGithub: string;
+  /** Admite el marcador {name}. */
+  photoAlt: string;
+  pageTitle: string;
+  ogTitle: string;
+  /** Admite el marcador {years}. */
+  metaDescription: string;
+  /** Encabezados de las secciones del CV. */
+  cv: {
+    experience: string;
+    projects: string;
+    skills: string;
+    languages: string;
+    education: string;
+  };
+  /** Enlace al otro idioma. */
+  switchTo: { href: string; label: string };
+}
+
 export interface CvData {
+  ui: Ui;
   profile: Profile;
   experience: Company[];
   projects: Project[];

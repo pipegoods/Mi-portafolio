@@ -1,24 +1,33 @@
 ---
-import { es } from "../data/es.ts";
+import { t, yearsOfExperience } from "../data/index.ts";
+import type { CvData } from "../data/types.ts";
 import Download from "./icons/Download.astro";
 import Github from "./icons/Github.astro";
 import Linkedin from "./icons/Linkedin.astro";
 
 interface Props {
-  yearsOfExperience: number;
+  data: CvData;
 }
 
-const { yearsOfExperience } = Astro.props;
-const { name, title, location, github, linkedin } = es.profile;
+const { data } = Astro.props;
+const { ui } = data;
+const { name, title, location, github, linkedin, careerStart } = data.profile;
+
+const years = yearsOfExperience(careerStart);
 
 const sections = [
-  { href: "#trabajo", label: "Qué construyo" },
-  { href: "#experiencia", label: "Experiencia" },
-  { href: "#proyectos", label: "Proyectos" },
+  { href: "#trabajo", label: ui.nav.about },
+  { href: "#experiencia", label: ui.nav.experience },
+  { href: "#proyectos", label: ui.nav.projects },
 ];
 
+const resumeFile =
+  ui.locale === "es"
+    ? "/cv-andres-vizcaino.pdf"
+    : "/cv-andres-vizcaino-en.pdf";
+
 const links = [
-  { href: "/cv-andres-vizcaino.pdf", label: "Curriculum", Icon: Download },
+  { href: resumeFile, label: ui.resume, Icon: Download },
   { href: github, label: "GitHub", Icon: Github },
   { href: linkedin, label: "LinkedIn", Icon: Linkedin },
 ];
@@ -32,7 +41,7 @@ const [firstName, ...lastNames] = name.split(" ");
   <div class="flex flex-col gap-6">
     <img
       src="/photo-andres-vizcaino.jpg"
-      alt={`Foto de perfil de ${name}`}
+      alt={t(ui.photoAlt, { name })}
       width="72"
       height="72"
       class="size-18 rounded-full border border-hairline object-cover"
@@ -53,11 +62,11 @@ const [firstName, ...lastNames] = name.split(" ");
     >
       <span class="pulse size-2 rounded-full bg-signal" aria-hidden="true"
       ></span>
-      {yearsOfExperience} años en producción
+      {t(ui.yearsInProduction, { years })}
     </p>
   </div>
 
-  <nav class="mt-12 flex flex-col gap-8" aria-label="Secciones">
+  <nav class="mt-12 flex flex-col gap-8" aria-label={ui.sections.experience}>
     <ul class="flex flex-wrap gap-x-6 gap-y-2 lg:flex-col lg:gap-2">
       {
         sections.map(({ href, label }) => (
@@ -91,6 +100,15 @@ const [firstName, ...lastNames] = name.split(" ");
           </li>
         ))
       }
+      <li>
+        <a
+          href={ui.switchTo.href}
+          class="inline-flex items-center rounded-full border border-hairline px-3 py-1.5 font-mono text-xs text-graphite transition-colors hover:border-signal hover:text-signal"
+          data-rail-item
+        >
+          {ui.switchTo.label}
+        </a>
+      </li>
     </ul>
   </nav>
 </aside>
