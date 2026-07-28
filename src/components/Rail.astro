@@ -1,0 +1,98 @@
+---
+import Download from "./icons/Download.astro";
+import Github from "./icons/Github.astro";
+import Linkedin from "./icons/Linkedin.astro";
+
+interface Props {
+  yearsOfExperience: number;
+}
+
+const { yearsOfExperience } = Astro.props;
+
+const sections = [
+  { href: "#trabajo", label: "Qué construyo" },
+  { href: "#experiencia", label: "Experiencia" },
+  { href: "#proyectos", label: "Proyectos" },
+];
+
+const links = [
+  { href: "/cv-andres-vizcaino.pdf", label: "Curriculum", Icon: Download },
+  { href: "https://github.com/pipegoods", label: "GitHub", Icon: Github },
+  {
+    href: "https://www.linkedin.com/in/andres-vizcaino-salazar/",
+    label: "LinkedIn",
+    Icon: Linkedin,
+  },
+];
+---
+
+<aside
+  class="py-12 lg:sticky lg:top-0 lg:flex lg:h-screen lg:flex-col lg:justify-between lg:py-16"
+>
+  <div class="flex flex-col gap-6">
+    <img
+      src="/photo-andres-vizcaino.jpg"
+      alt="Foto de perfil de Andrés Vizcaíno"
+      width="72"
+      height="72"
+      class="size-18 rounded-full border border-hairline object-cover"
+      data-rail-item
+    />
+
+    <div class="flex flex-col gap-3">
+      <p class="eyebrow" data-rail-item>Cali, Colombia</p>
+      <h1 class="display text-4xl md:text-5xl" data-rail-item>
+        Andrés<br />Vizcaíno
+      </h1>
+      <p class="font-mono text-sm text-graphite" data-rail-item>
+        Full Stack Developer
+      </p>
+    </div>
+
+    <p
+      class="flex items-center gap-2 font-mono text-xs text-graphite"
+      data-rail-item
+    >
+      <span class="pulse size-2 rounded-full bg-signal" aria-hidden="true"
+      ></span>
+      {yearsOfExperience} años en producción
+    </p>
+  </div>
+
+  <nav class="mt-12 flex flex-col gap-8" aria-label="Secciones">
+    <ul class="flex flex-wrap gap-x-6 gap-y-2 lg:flex-col lg:gap-2">
+      {
+        sections.map(({ href, label }) => (
+          <li>
+            <a
+              href={href}
+              class="font-mono text-sm text-graphite transition-colors hover:text-signal"
+              data-rail-item
+            >
+              {label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <ul class="flex flex-wrap gap-2">
+      {
+        links.map(({ href, label, Icon }) => (
+          <li>
+            <a
+              href={href}
+              target="_blank"
+              rel="noopener"
+              class="inline-flex items-center gap-2 rounded-full border border-hairline px-3 py-1.5 font-mono text-xs text-ink transition-colors hover:border-signal hover:bg-signal hover:text-paper"
+              data-rail-item
+            >
+              <Icon />
+              {label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+</aside>

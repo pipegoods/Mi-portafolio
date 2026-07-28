@@ -1,5 +1,4 @@
 ---
-import LocationMap from "./icons/LocationMap.astro";
 interface experienceType {
   companyName: string;
   location: string;
@@ -20,23 +19,34 @@ const experiences: experienceType[] = [
       {
         roleName: "Full Stack Web Developer",
         tasks: [
-          "Dirigí la planificación y ejecución de proyectos web, enfocándome en la optimización de procesos y la reducción de costos, logrando mejoras significativas en eficiencia y calidad.",
-          "Optimicé despliegues de aplicaciones en producción, reduciendo costos mediante la evaluación y mejora de procesos.",
+          "Lidero el desarrollo de plataformas para eventos científicos de laboratorios farmacéuticos globales, con e-learnings de hasta 1.000 usuarios inscritos y transmisiones en vivo de 300 asistentes simultáneos.",
+          "Construí y lideré juegos y experiencias interactivas (trivias, ruletas, escape rooms) usadas en congresos, tanto en web como en tótems digitales en eventos presenciales.",
+          "Automaticé la generación de escarapelas, reduciendo de días a minutos un proceso que antes era manual para el equipo de diseño.",
+          "Lidero actualmente el desarrollo de una herramienta de soporte diagnóstico dermatológico para médicos generales, que combina RAG sobre literatura médica con análisis de imágenes mediante modelos multimodales.",
+          "Desarrollé una plataforma de análisis de emociones aplicada a eventos.",
+          "Levanto requerimientos directamente con el cliente y acompaño el proyecto de principio a fin, desde la definición hasta la entrega en producción.",
+          "Entrego cerca de 3 proyectos al mes y hago también el DevOps: administro los servidores y respondo por la estabilidad en Digital Ocean, Vercel, Netlify y Azure.",
+          "Integré electrónica en experiencias presenciales, conectando botones físicos y sensores con Arduino a aplicaciones de kiosco para tótems de eventos.",
         ],
         stack: [
           "Next JS",
           "React",
+          "TypeScript",
           "Tailwind CSS",
           "Node JS",
-          "Drupal",
-          "Wordpress",
-          "Go",
-          "API REST",
-          "TypeScript",
+          "Python",
+          "FastAPI",
+          "Prisma",
+          "Supabase",
           "PostgreSQL",
+          "Docker",
+          "Digital Ocean",
+          "Vercel",
+          "Azure",
+          "Arduino",
         ],
         startDate: "Sep. 2022",
-        endDate: "Act",
+        endDate: "Actualidad",
       },
       {
         roleName: "Web Developer",
@@ -79,49 +89,50 @@ const experiences: experienceType[] = [
 ];
 ---
 
-<section id="experience" class="scroll-mt-24">
-  <div class="flex items-center">
-    <div class="container mx-auto flex flex-col justify-between">
-      <h1 class="mb-8 text-2xl font-semibold">Experiencia</h1>
-      <ul class="flex flex-col gap-12">
-        {
-          experiences.map((exp: experienceType) => (
-            <li class="flex flex-col gap-8 rounded-sm">
-              <div class="flex flex-1 flex-col gap-6">
-                <header class="flex justify-between">
-                  <h2 class="text-xl font-semibold text-blue-900">
-                    {exp.companyName}
-                  </h2>
-                  <span class="flex items-center gap-1 text-gray-500">
-                    <LocationMap />
-                    {exp.location}
-                  </span>
+<section id="experiencia" class="relative scroll-mt-8 py-14">
+  <span class="node top-[4.1rem] -left-8 -translate-x-1/2" data-node></span>
+
+  <p class="eyebrow reveal">Experiencia</p>
+
+  <ul class="mt-10 flex flex-col gap-16">
+    {
+      experiences.map((exp) => (
+        <li class="reveal">
+          <header class="flex flex-wrap items-baseline justify-between gap-2">
+            <h3 class="display text-xl md:text-2xl">{exp.companyName}</h3>
+            <p class="font-mono text-xs text-graphite">{exp.location}</p>
+          </header>
+
+          <ul class="mt-6 flex flex-col">
+            {exp.roles.map((role) => (
+              <li class="border-t border-hairline py-6">
+                <header class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+                  <h4 class="font-semibold">{role.roleName}</h4>
+                  <p class="font-mono text-xs text-graphite">
+                    {role.startDate} — {role.endDate}
+                  </p>
                 </header>
-                <ul class="flex flex-col gap-6">
-                  {exp.roles.map((role) => (
-                    <li class="flex flex-col gap-4 border-b border-b-gray-300 pb-2">
-                      <header class="flex justify-between text-gray-600">
-                        <p class="font-semibold">{role.roleName}</p>
-                        <p>
-                          {role.startDate} - {role.endDate}
-                        </p>
-                      </header>
-                      <ul class="flex list-inside list-disc flex-col flex-wrap gap-2">
-                        {role.tasks.map((task) => (
-                          <li class="text-gray-700">{task}</li>
-                        ))}
-                      </ul>
-                      <p class="text-sm text-gray-600">
-                        {role.stack.join(" | ")}
-                      </p>
+
+                <ul class="mt-4 flex flex-col gap-2.5">
+                  {role.tasks.map((task) => (
+                    <li class="relative pl-5 text-graphite">
+                      <span
+                        class="absolute top-2.5 left-0 h-px w-3 bg-tiffany"
+                        aria-hidden="true"
+                      />
+                      {task}
                     </li>
                   ))}
                 </ul>
-              </div>
-            </li>
-          ))
-        }
-      </ul>
-    </div>
-  </div>
+
+                <p class="mt-4 font-mono text-xs text-graphite">
+                  {role.stack.join("  ·  ")}
+                </p>
+              </li>
+            ))}
+          </ul>
+        </li>
+      ))
+    }
+  </ul>
 </section>

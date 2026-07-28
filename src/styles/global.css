@@ -1,0 +1,122 @@
+@import "tailwindcss";
+
+@import "@fontsource-variable/archivo/wdth.css";
+@import "@fontsource-variable/instrument-sans";
+@import "@fontsource-variable/jetbrains-mono";
+
+@theme {
+  /* La señal (Tiffany) sobre papel frío. El pálido es identidad,
+     el profundo es interacción. */
+  --color-ink: #10201f;
+  --color-paper: #f2f6f5;
+  --color-tiffany: #81d8d0;
+  --color-signal: #0abab5;
+  --color-graphite: #5a6b69;
+  --color-hairline: #d5e0de;
+
+  --font-display: "Archivo Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Instrument Sans Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono Variable", ui-monospace, monospace;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Señalética: Archivo en su anchura máxima, como los letreros
+     de un centro de convenciones. */
+  .display {
+    font-family: var(--font-display);
+    font-stretch: 125%;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 0.95;
+    text-transform: uppercase;
+  }
+
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-graphite);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-signal);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+}
+
+@layer components {
+  /* La traza: raíl de 1px que se rellena con el scroll. */
+  .trace {
+    position: absolute;
+    inset-block: 0;
+    width: 1px;
+    background-color: var(--color-hairline);
+  }
+
+  .trace__fill {
+    position: absolute;
+    inset: 0;
+    background-color: var(--color-tiffany);
+    transform: scaleY(0);
+    transform-origin: top;
+  }
+
+  /* Nodo: apagado por defecto, se enciende al pasar la señal. */
+  .node {
+    position: absolute;
+    width: 9px;
+    height: 9px;
+    border-radius: 9999px;
+    border: 1px solid var(--color-hairline);
+    background-color: var(--color-paper);
+    transition:
+      background-color 0.4s ease,
+      border-color 0.4s ease,
+      box-shadow 0.4s ease;
+  }
+
+  .node.is-live {
+    background-color: var(--color-tiffany);
+    border-color: var(--color-signal);
+    box-shadow: 0 0 0 4px color-mix(in oklab, var(--color-tiffany) 28%, transparent);
+  }
+
+  /* Estado inicial de los reveals. GSAP los libera. Va condicionado a la
+     clase .js del <html> para que sin JavaScript el contenido sea visible,
+     y a que el usuario no haya pedido movimiento reducido. */
+  @media (prefers-reduced-motion: no-preference) {
+    .js .reveal {
+      opacity: 0;
+    }
+  }
+
+  /* El punto de estado late solo si hay permiso para animar. */
+  @media (prefers-reduced-motion: no-preference) {
+    .pulse {
+      animation: pulse 2.4s ease-in-out infinite;
+    }
+  }
+
+  @keyframes pulse {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.35;
+    }
+  }
+}

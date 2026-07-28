@@ -1,96 +1,106 @@
 ---
-const projects = [
+interface projectType {
+  name: string;
+  description: string;
+  technologies: string[];
+  link?: string;
+  linkLabel?: string;
+}
+
+const projects: projectType[] = [
+  {
+    name: "Dogesti",
+    description:
+      "Una pyme opera todo en un solo sistema: inventario por sede, punto de venta y facturación electrónica ante la DIAN. Un mismo usuario puede manejar varias empresas.",
+    technologies: [
+      "Next JS",
+      "Supabase",
+      "Tailwind CSS",
+      "shadcn/ui",
+      "TypeScript",
+    ],
+    link: "https://dogesti.com",
+    linkLabel: "Ver demo",
+  },
+  {
+    name: "Viatro",
+    description:
+      "Legalizar gastos de viaje sin perseguir recibos: cada evento lleva sus movimientos por categoría, con el soporte adjunto y la factura escaneada por QR. La construí porque viajo a eventos y me tocaba hacerlo a mano.",
+    technologies: ["Next JS", "Prisma", "PostgreSQL", "Clerk", "AWS S3", "PWA"],
+  },
+  {
+    name: "Artemis II Tracker",
+    description:
+      "La nave Orion rumbo a la Luna y de vuelta, en 3D y con la trayectoria real del JPL de la NASA. Cabe en un solo archivo HTML.",
+    technologies: ["Three.js", "WebGL", "JavaScript", "Datos del JPL"],
+    link: "https://github.com/pipegoods/artemis-ii-tracker",
+  },
+  {
+    name: "Stridia",
+    description:
+      "Dile tu objetivo —5K, resistencia, velocidad— y arma el plan semanal de entrenamiento; si un día amaneces mal, lo reajusta. Hecho a cuatro manos con Katy Paola.",
+    technologies: ["Next JS", "AI SDK", "Open AI", "Dexie", "TypeScript"],
+    link: "https://github.com/katy-paola/cubepath-hackathon",
+  },
+  {
+    name: "Fintivo",
+    description:
+      "Ingresos y gastos con la plata en pesos colombianos y las categorías que uno de verdad usa. Guarda todo en el teléfono: sin cuenta que crear ni datos que subir.",
+    technologies: ["Flutter", "Dart", "Material Design 3"],
+    link: "https://appdistribution.firebase.google.com/i/70e43f42606783c2",
+    linkLabel: "Descargar APK",
+  },
   {
     name: "lpbcol-app",
     description:
-      "Aplicación para la liga profesional de Beisbol de Colombia (Fines educativos)",
-    technologies: [
-      "TailwindCSS",
-      "Astro",
-      "Hono",
-      "Scraping Web",
-      "Typescript",
-    ],
+      "Resultados y tablas de la Liga Profesional de Béisbol de Colombia. Como no hay API pública, los saco por scraping. Proyecto de práctica.",
+    technologies: ["Astro", "Hono", "Scraping Web", "Tailwind CSS", "TypeScript"],
     link: "https://github.com/pipegoods/lpbcol-app",
-  },
-  {
-    name: "Chat Bot Tesis",
-    description: "Chat bot con AI que te ayudará con tu tesis",
-    technologies: ["TailwindCSS", "React JS", "Open AI API"],
-    link: "https://github.com/pipegoods/chatbot-tesis",
-  },
-  {
-    name: "Pets Cédula",
-    description:
-      "Crea una cédula para tu mascota, genera un QR único para cada mascota",
-    technologies: [
-      "TailwindCSS",
-      "Next JS",
-      "Prisma ORM",
-      "PostgreSQL",
-      "Vercel",
-      "Typescript",
-    ],
-    link: "https://github.com/pipegoods/pets-cedula",
-  },
-  {
-    name: "Who Knows U",
-    description:
-      "Quienes chatear con alguien por whatsApp pero no quieres agregarlo a tus contactos, esta es tu app",
-    technologies: ["CSS", "React JS", "TypeScript", "Local Storage", "Netlify"],
-    link: "https://github.com/pipegoods/who-knows-u",
-  },
-  {
-    name: "Mi Band estrés",
-    description:
-      "Proyecto de grado, una app para medir el estrés de una persona, con un sensor de frecuencia cardíaca utilizando el IOT - Xiaomi Mi band",
-    technologies: ["Firebase", "React JS", "Material UI", "Firestore"],
-    link: "https://github.com/pipegoods/labestres",
-  },
-  {
-    name: "El Bicho App",
-    description:
-      "Video juego sobre el bicho (Cristiano Ronaldo), el cual debes anotar goles y obtener el mayor puntaje",
-    technologies: ["Firebase", "Vue JS", "CSS", "HTML"],
-    link: "https://github.com/pipegoods/ElBichoAPP",
   },
 ];
 ---
 
-<section id="projects" class="scroll-mt-24">
-  <div class="container mx-auto flex flex-col justify-between gap-6">
-    <h1 class="text-2xl font-semibold text-gray-800">Mis Proyectos</h1>
+<section id="proyectos" class="relative scroll-mt-8 py-14">
+  <span class="node top-[4.1rem] -left-8 -translate-x-1/2" data-node></span>
 
-    <ul class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-      {
-        projects.map((project) => (
-          <li class="group relative flex flex-col gap-8 rounded-xl border border-gray-200 bg-gray-50 p-4 shadow-sm transition-transform hover:scale-105">
+  <p class="eyebrow reveal">Proyectos</p>
+
+  <ul class="mt-10 grid gap-px border border-hairline bg-hairline sm:grid-cols-2">
+    {
+      projects.map((project) => (
+        <li class="reveal group relative flex flex-col gap-5 bg-paper p-6 transition-colors hover:bg-white">
+          {project.link && (
             <a
               href={project.link}
               target="_blank"
+              rel="noopener"
+              aria-label={`${project.linkLabel ?? "Ver en GitHub"}: ${project.name}`}
               class="absolute inset-0 z-10"
             />
+          )}
 
-            <div class="flex flex-1 flex-col gap-4">
-              <h2 class="text-xl font-semibold text-blue-900">
-                {project.name}
-              </h2>
-              <p class="text-gray-600">{project.description}</p>
-              <ul class="flex flex-wrap gap-2">
-                {project.technologies.map((tech) => (
-                  <li class="inline-block border border-gray-400 bg-gray-100 px-2 text-sm text-gray-700">
-                    {tech}
-                  </li>
-                ))}
-              </ul>
-            </div>
+          <div class="flex flex-1 flex-col gap-3">
+            <h3 class="display text-lg group-hover:text-signal">
+              {project.name}
+            </h3>
+            <p class="text-sm text-graphite">{project.description}</p>
+          </div>
 
-            <span class="inline-block cursor-pointer rounded-full bg-blue-900 px-4 py-1 text-center text-white transition-colors group-hover:bg-blue-950">
-              View on GitHub
-            </span>
-          </li>
-        ))
-      }
-    </ul>
-  </div>
+          <ul class="flex flex-wrap gap-x-3 gap-y-1">
+            {project.technologies.map((tech) => (
+              <li class="font-mono text-[0.6875rem] tracking-wide text-graphite">
+                {tech}
+              </li>
+            ))}
+          </ul>
+
+          {project.link && (
+            <p class="font-mono text-xs text-signal">
+              {project.linkLabel ?? "Ver en GitHub"} →
+            </p>
+          )}
+        </li>
+      ))
+    }
+  </ul>
 </section>

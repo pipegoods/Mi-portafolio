@@ -1,55 +1,30 @@
 ---
-import Download from "./icons/Download.astro";
-import Github from "./icons/Github.astro";
-import Linkedin from "./icons/Linkedin.astro";
 ---
 
-<section id="hero" class="grid scroll-mt-24">
-  <div class="flex flex-col gap-6">
-    <section class="flex flex-col gap-2">
-      <img
-        src="/photo-andres-vizcaino.jpg"
-        class="mx-auto w-36 rounded-full border border-slate-300 p-0.5"
-      />
-      <p class="text-center text-2xl text-gray-800 md:text-3xl">
-        Hola, soy Andrés Vizcaíno.
-      </p>
-      <h2
-        class="mx-auto text-center text-xl font-semibold text-blue-900 md:text-2xl"
-      >
-        Full Stack Web Developer
-      </h2>
-      <h3
-        class="mx-auto text-center text-sm font-normal text-gray-800 md:text-base"
-      >
-        React | Node JS | Next JS | CSS
-      </h3>
-    </section>
-    <div class="flex gap-2 md:justify-center">
-      <a
-        href="/cv-andres-vizcaino.pdf"
-        target="_blank"
-        class="flex flex-1 items-center justify-center gap-1 rounded-full border border-blue-900 bg-blue-900 px-3 py-1 text-sm text-gray-50 transition-colors hover:bg-blue-950 hover:text-gray-50 md:flex-initial"
-      >
-        <Download />
-        Curriculum
-      </a>
-      <a
-        href="https://github.com/pipegoods"
-        target="_blank"
-        class="flex flex-1 items-center justify-center gap-1 rounded-full border border-blue-900 px-3 py-1 text-sm text-blue-900 transition-colors hover:bg-blue-900 hover:text-gray-50 md:flex-initial"
-      >
-        <Github />
-        Github
-      </a>
-      <a
-        href="https://www.linkedin.com/in/andres-vizcaino-salazar/"
-        target="_blank"
-        class="flex flex-1 items-center justify-center gap-1 rounded-full border border-blue-900 px-3 py-1 text-sm text-blue-900 transition-colors hover:bg-blue-900 hover:text-gray-50 md:flex-initial"
-      >
-        <Linkedin />
-        Linkedin
-      </a>
-    </div>
+<section id="trabajo" class="relative scroll-mt-8 py-14 lg:pt-24">
+  <span class="node top-18 -left-8 -translate-x-1/2" data-node></span>
+
+  <p class="eyebrow reveal">Sobre mí</p>
+
+  <div class="reveal mt-6 flex max-w-xl flex-col gap-4 text-lg text-graphite">
+    <p>
+      Soy un desarrollador full stack cartagenero. Llevo seis años en igloolab
+      construyendo plataformas para eventos científicos: e-learnings,
+      transmisiones en vivo, juegos para congresos y tótems que funcionan con
+      botones físicos.
+    </p>
+    <p>
+      Trabajo el proyecto completo: levanto el requerimiento con el cliente, lo
+      construyo y me encargo del servidor. Ahora lidero una herramienta de apoyo
+      diagnóstico con IA para médicos generales.
+    </p>
+    <p>
+      Por fuera del trabajo hago mis propias apps, casi siempre para resolverme
+      un problema.
+    </p>
   </div>
+
+  <p class="reveal mt-8 font-mono text-sm text-graphite">
+    Next JS · TypeScript · Prisma · Supabase · React Native
+  </p>
 </section>

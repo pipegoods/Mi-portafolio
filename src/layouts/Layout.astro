@@ -1,11 +1,52 @@
 ---
 import { SEO } from "astro-seo";
 
+import Footer from "../components/Footer.astro";
+import Rail from "../components/Rail.astro";
+import "../styles/global.css";
+
 interface Props {
   title: string;
 }
 
 const { title } = Astro.props;
+
+// Fecha de inicio de la carrera (Sima, Web Master). Los años se calculan en
+// cada build para que la descripción no quede desactualizada.
+const CAREER_START = new Date("2020-05-01");
+const MS_PER_YEAR = 365.25 * 24 * 60 * 60 * 1000;
+const yearsOfExperience = Math.floor(
+  (Date.now() - CAREER_START.getTime()) / MS_PER_YEAR,
+);
+
+const description = `Desarrollador full stack en Cali, Colombia. Llevo ${yearsOfExperience} años construyendo plataformas para eventos científicos: e-learnings, transmisiones en vivo y tótems interactivos para congresos.`;
+
+// Las URLs de Open Graph deben ser absolutas para que las redes sociales
+// puedan renderizar la vista previa.
+const photoUrl = new URL("/photo-andres-vizcaino.jpg", Astro.site).href;
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ProfilePage",
+  mainEntity: {
+    "@type": "Person",
+    name: "Andrés Vizcaíno",
+    jobTitle: "Full Stack Developer",
+    description,
+    image: photoUrl,
+    url: Astro.site?.href,
+    worksFor: { "@type": "Organization", name: "igloolab" },
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Cali",
+      addressCountry: "CO",
+    },
+    sameAs: [
+      "https://github.com/pipegoods",
+      "https://www.linkedin.com/in/andres-vizcaino-salazar/",
+    ],
+  },
+};
 ---
 
 <!doctype html>
@@ -22,29 +63,44 @@ const { title } = Astro.props;
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="manifest" href="/site.webmanifest" />
 
-    <meta name="theme-color" content="#18181b" />
+    <meta name="theme-color" content="#f2f6f5" />
 
-    <meta name="msapplication-navbutton-color" content="#18181b" />
+    <meta name="msapplication-navbutton-color" content="#f2f6f5" />
 
-    <meta name="apple-mobile-web-app-status-bar-style" content="#18181b" />
-    <meta name="generator" content={Astro.generator} />
+    <meta name="apple-mobile-web-app-status-bar-style" content="#f2f6f5" />
 
     <meta name="mobile-web-app-capable" content="yes" />
+
+    {/* Marca el documento antes del primer render para que los estados
+    iniciales de las animaciones solo apliquen si hay JavaScript. */}
+    <script is:inline>
+      document.documentElement.classList.add("js");
+    </script>
 
     <SEO
       openGraph={{
         basic: {
-          image: "/photo-andres-vizcaino.jpg",
+          image: photoUrl,
           title: "Hola, soy Andrés Vizcaíno",
           type: "website",
           url: "https://andresvizcaino.com",
         },
+        image: {
+          alt: "Foto de perfil de Andrés Vizcaíno",
+        },
       }}
       title="Hola, soy Andrés Vizcaíno"
-      description="Desarrollador Web Full Stack con 2 años de experiencia en el desarrollo de aplicaciones web con React."
+      description={description}
       twitter={{
+        card: "summary_large_image",
         creator: "@pipegoods",
       }}
+    />
+
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify(jsonLd)}
+      is:inline
     />
 
     <script
@@ -54,7 +110,89 @@ const { title } = Astro.props;
       data-token="p.eyJ1IjogIjQ2Y2U4ZTJlLTNjZmQtNDE3Yy05MjUwLWRmYjBlYjAyZjQ5YSIsICJpZCI6ICI4ODcyZTI2ZS04YTdiLTQ2YTItYmFlNi04MGFjN2FlNDRkZTUifQ.iNHSDAqrTfdiSt0RFTjhQJE1sPXAwQfPflTLcNN9WQ8"
     ></script>
   </head>
-  <body class="scroll-smooth bg-neutral-100/50 text-gray-800">
-    <slot />
+  <body>
+    <div
+      class="mx-auto grid max-w-6xl px-6 lg:grid-cols-[17rem_1fr] lg:gap-20 lg:px-10"
+    >
+      <Rail yearsOfExperience={yearsOfExperience} />
+
+      <main class="relative pl-8">
+        {/* La traza: la señal recorre la página al hacer scroll. */}
+        <div class="trace left-0" aria-hidden="true">
+          <div class="trace__fill" data-trace-fill></div>
+        </div>
+
+        <slot />
+        <Footer />
+      </main>
+    </div>
+
+    <script>
+      import { gsap } from "gsap";
+      import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+      gsap.registerPlugin(ScrollTrigger);
+
+      // Todo el movimiento queda dentro de matchMedia: si el sistema pide
+      // movimiento reducido, GSAP revierte y el contenido queda visible.
+      const mm = gsap.matchMedia();
+
+      mm.add("(prefers-reduced-motion: no-preference)", () => {
+        const main = document.querySelector("main");
+        const fill = document.querySelector("[data-trace-fill]");
+
+        // La señal se dibuja atada al scroll.
+        if (main && fill) {
+          gsap.to(fill, {
+            scaleY: 1,
+            ease: "none",
+            scrollTrigger: {
+              trigger: main,
+              start: "top top",
+              end: "bottom bottom",
+              scrub: 0.4,
+            },
+          });
+        }
+
+        // Cada nodo se enciende cuando la señal lo alcanza.
+        document.querySelectorAll("[data-node]").forEach((node) => {
+          ScrollTrigger.create({
+            trigger: node,
+            start: "top 70%",
+            onEnter: () => node.classList.add("is-live"),
+            onLeaveBack: () => node.classList.remove("is-live"),
+          });
+        });
+
+        // Secuencia de entrada del raíl.
+        gsap.from("[data-rail-item]", {
+          opacity: 0,
+          y: 12,
+          duration: 0.7,
+          stagger: 0.06,
+          ease: "power2.out",
+        });
+
+        // Reveals por sección.
+        gsap.utils.toArray<HTMLElement>(".reveal").forEach((el) => {
+          gsap.fromTo(
+            el,
+            { opacity: 0, y: 16 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.7,
+              ease: "power2.out",
+              scrollTrigger: { trigger: el, start: "top 88%" },
+            },
+          );
+        });
+
+        return () => {
+          gsap.set(".reveal", { clearProps: "all" });
+        };
+      });
+    </script>
   </body>
 </html>
