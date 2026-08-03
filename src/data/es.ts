@@ -20,6 +20,8 @@ export const es: CvData = {
     backToTop: "Volver arriba",
     viewOnGithub: "Ver en GitHub",
     photoAlt: "Foto de perfil de {name}",
+    ogImageAlt:
+      "{name}, Full Stack Developer en Cali, Colombia, junto a la ilustración de un tótem interactivo",
     pageTitle: "Andrés Vizcaíno | Full Stack Developer",
     ogTitle: "Hola, soy Andrés Vizcaíno",
     metaDescription:

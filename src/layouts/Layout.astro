@@ -23,6 +23,12 @@ const description = t(ui.metaDescription, { years });
 // puedan renderizar la vista previa.
 const photoUrl = new URL("/photo-andres-vizcaino.jpg", Astro.site).href;
 
+// La vista previa en redes es una tarjeta 1200x630 con la marca del sitio, no
+// la foto: en un timeline la foto se recorta y no dice de quién es la página.
+// La foto se queda en el JSON-LD, que es donde Google espera a la persona.
+// Se genera con art/build-og-html.py; ver art/README.md.
+const ogImageUrl = new URL("/og-image.png", Astro.site).href;
+
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "ProfilePage",
@@ -94,13 +100,16 @@ const alternates = [
     <SEO
       openGraph={{
         basic: {
-          image: photoUrl,
+          image: ogImageUrl,
           title: ui.ogTitle,
           type: "website",
           url: Astro.url.href,
         },
         image: {
-          alt: t(ui.photoAlt, { name: profile.name }),
+          alt: t(ui.ogImageAlt, { name: profile.name }),
+          type: "image/png",
+          width: 1200,
+          height: 630,
         },
         optional: {
           locale: ui.locale === "es" ? "es_CO" : "en_US",

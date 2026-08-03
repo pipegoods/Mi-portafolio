@@ -77,6 +77,8 @@ export interface Ui {
   viewOnGithub: string;
   /** Admite el marcador {name}. */
   photoAlt: string;
+  /** Descripción de la tarjeta de Open Graph. Admite el marcador {name}. */
+  ogImageAlt: string;
   pageTitle: string;
   ogTitle: string;
   /** Admite el marcador {years}. */

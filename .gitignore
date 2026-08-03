@@ -4,6 +4,9 @@ dist/
 # generated types
 .astro/
 
+# HTML intermedio de la tarjeta de Open Graph (fuentes e icono en base64)
+art/og.html
+
 # dependencies
 node_modules/
 
