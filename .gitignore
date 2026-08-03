@@ -22,3 +22,8 @@ pnpm-debug.log*
 
 # macOS-specific files
 .DS_Store
+
+# Skills instalados. Lo que se versiona es skills-lock.json, que registra el
+# origen y permite reinstalarlos.
+.agents/
+.claude/
