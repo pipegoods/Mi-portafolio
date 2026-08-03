@@ -1,0 +1,70 @@
+name: Desplegar en Hostinger
+
+on:
+  push:
+    branches: [master]
+  # Permite relanzar el despliegue a mano desde la pestaña Actions, sin
+  # necesidad de un commit vacío.
+  workflow_dispatch:
+
+# Si se empujan dos commits seguidos, el primero se cancela: subir dos veces a
+# la vez por FTP dejaría el sitio con archivos de builds distintos mezclados.
+concurrency:
+  group: deploy-produccion
+  cancel-in-progress: true
+
+jobs:
+  desplegar:
+    name: Construir y publicar
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clonar el repositorio
+        uses: actions/checkout@v7
+
+      # pnpm va antes que Node: setup-node necesita que pnpm ya exista para
+      # poder cachear su almacén. La versión sale del campo packageManager de
+      # package.json, así que no hay que repetirla aquí.
+      - name: Instalar pnpm
+        uses: pnpm/action-setup@v6
+
+      - name: Instalar Node
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - name: Instalar dependencias
+        run: pnpm install --frozen-lockfile
+
+      - name: Revisar el código
+        run: pnpm lint
+
+      - name: Construir el sitio
+        run: pnpm build
+
+      # El CV en PDF y la tarjeta de Open Graph no se generan aquí: son assets
+      # versionados que ya viven en public/ y que astro build copia a dist/.
+      # Por eso este workflow no necesita ni Chrome ni Python.
+
+      - name: Publicar por FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.4.0
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          local-dir: ./dist/
+          # La cuenta FTP entra directamente en la raíz del sitio
+          # (/domains/andresvizcaino.com/public_html), así que el destino es el
+          # propio directorio de login. Poner public_html/ aquí crearía una
+          # carpeta anidada y el sitio no cambiaría.
+          server-dir: ./
+          # El certificado del servidor es *.hstgr.io, así que solo valida si
+          # FTP_SERVER es el nombre del servidor. Con la IP hay que usar loose,
+          # que sigue cifrando pero no verifica la identidad del servidor.
+          security: ${{ vars.FTP_SECURITY || 'loose' }}
+          # La acción guarda un archivo de estado en el servidor y en las
+          # siguientes corridas solo sube lo que cambió. La primera vez sube
+          # todo, que es lo esperado.
+          log-level: minimal

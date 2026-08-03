@@ -50,6 +50,52 @@ All commands are run from the root of the project, from a terminal:
 | `pnpm astro ...`           | Run CLI commands like `astro add`, `astro check` |
 | `pnpm astro -- --help`     | Get help using the Astro CLI                     |
 
+## 🚀 Despliegue
+
+El sitio vive en Hostinger (hosting compartido) y se publica solo: cada push a
+`master` dispara `.github/workflows/deploy.yml`, que instala, pasa el linter,
+construye y sube `dist/` por FTPS.
+
+La acción guarda un archivo de estado en el servidor, así que a partir del
+segundo despliegue solo sube lo que cambió.
+
+### Secretos
+
+Las credenciales salen de hPanel, en **Archivos → Cuentas FTP**, y se cargan en
+**Settings → Secrets and variables → Actions** (o con `gh secret set NOMBRE`):
+
+| Secreto        | Valor                       |
+| :------------- | :-------------------------- |
+| `FTP_SERVER`   | Host o IP del servidor FTP  |
+| `FTP_USERNAME` | Usuario de la cuenta FTP    |
+| `FTP_PASSWORD` | Su contraseña               |
+
+### Dos detalles del servidor
+
+**El destino es `./`, no `public_html/`.** La cuenta FTP entra directamente en
+`/domains/andresvizcaino.com/public_html`, así que el directorio de login ya es
+la raíz del sitio. Poner `public_html/` crearía una carpeta anidada y el sitio
+no cambiaría.
+
+**El certificado FTPS es `*.hstgr.io`.** Solo valida si `FTP_SERVER` es el
+nombre del servidor de Hostinger (`srvXXXX.hstgr.io`, está en hPanel); con la IP
+la verificación falla. Por eso el workflow usa `security: loose`, que sigue
+cifrando la conexión pero no comprueba la identidad del servidor. Para
+endurecerlo: poner el hostname en `FTP_SERVER` y añadir una **variable**
+`FTP_SECURITY` con el valor `strict`.
+
+### Caché del CDN
+
+El sitio va detrás del CDN de Hostinger (`server: hcdn`). Si tras un despliegue
+sigues viendo la versión vieja, hay que purgar la caché desde hPanel.
+
+### Assets que no se generan en el build
+
+El CV en PDF (`pnpm cv`, necesita Chrome) y la ilustración (`art/`, necesita
+Python) se generan a mano y quedan versionados en `public/`. El workflow solo
+corre `astro build`, que los copia a `dist/`. Si se cambia el contenido del CV
+hay que correr `pnpm cv` y commitear los PDF antes de empujar.
+
 ## 👀 Want to learn more?
 
 Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
