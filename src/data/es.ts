@@ -6,15 +6,20 @@ export const es: CvData = {
   ui: {
     locale: "es",
     nav: {
-      about: "Qué construyo",
+      about: "Sobre mí",
       experience: "Experiencia",
       projects: "Proyectos",
+      contact: "Contacto",
     },
     sections: {
       about: "Sobre mí",
       experience: "Experiencia",
       projects: "Proyectos",
+      contact: "Contacto",
     },
+    contactIntro: "Para escribirme sobre un proyecto o una vacante:",
+    copyEmail: "Copiar",
+    emailCopied: "Copiado",
     yearsInProduction: "{years} años en producción",
     resume: "Curriculum",
     backToTop: "Volver arriba",
@@ -34,6 +39,12 @@ export const es: CvData = {
       education: "Educación",
     },
     switchTo: { href: "/en/", label: "English" },
+    languageSuggestion: {
+      lang: "en",
+      message: "This site is also available in English.",
+      action: "Read in English",
+      dismiss: "Dismiss",
+    },
   },
 
   profile: {
@@ -49,7 +60,7 @@ export const es: CvData = {
     twitter: "@pipegoods",
     careerStart: "2020-05-01",
     about: [
-      "Soy un desarrollador full stack cartagenero. Llevo seis años en igloolab construyendo plataformas para eventos científicos: e-learnings, transmisiones en vivo, juegos para congresos y tótems que funcionan con botones físicos.",
+      "Soy un desarrollador full stack cartagenero con seis años de experiencia, cinco de ellos en igloolab, donde construyo plataformas para eventos científicos: e-learnings, transmisiones en vivo, juegos para congresos y tótems que funcionan con botones físicos.",
       "Trabajo el proyecto completo: levanto el requerimiento con el cliente, lo construyo y me encargo del servidor. Ahora lidero una herramienta de apoyo diagnóstico con IA para médicos generales.",
       "Por fuera del trabajo hago mis propias apps, casi siempre para resolverme un problema.",
     ],
@@ -153,6 +164,7 @@ export const es: CvData = {
       link: "https://dogesti.com",
       linkLabel: "Ver demo",
       inCv: true,
+      featured: true,
     },
     {
       name: "Viatro",

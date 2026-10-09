@@ -7,7 +7,15 @@ interface Props {
 }
 
 const { data } = Astro.props;
-const projects = data.projects;
+// El destacado va primero y ocupa las dos columnas de la cuadrícula.
+const projects = [...data.projects].sort(
+  (a, b) => Number(b.featured ?? false) - Number(a.featured ?? false),
+);
+
+// Si los que no son destacados quedan impares, el último se estira para que
+// la cuadrícula no termine con una celda vacía.
+const regularCount = projects.filter((p) => !p.featured).length;
+const stretchLast = regularCount % 2 === 1;
 ---
 
 <section id="proyectos" class="relative scroll-mt-8 py-14">
@@ -17,8 +25,15 @@ const projects = data.projects;
 
   <ul class="mt-10 grid gap-px border border-hairline bg-hairline sm:grid-cols-2">
     {
-      projects.map((project) => (
-        <li class="reveal group relative flex flex-col gap-5 bg-paper p-6 transition-colors hover:bg-white">
+      projects.map((project, index) => (
+        <li
+          class:list={[
+            "reveal group relative flex flex-col gap-5 bg-paper p-6 transition-colors hover:bg-white",
+            project.featured &&
+              "sm:col-span-2 sm:flex-row sm:items-center sm:gap-10 sm:p-10",
+            stretchLast && index === projects.length - 1 && "sm:col-span-2",
+          ]}
+        >
           {project.link && (
             <a
               href={project.link}
@@ -39,30 +54,50 @@ const projects = data.projects;
               height="264"
               loading="lazy"
               decoding="async"
-              class="-mt-2 -mb-3 size-30"
+              class:list={[
+                "-mt-2 -mb-3 size-30",
+                project.featured && "sm:m-0 sm:size-48 sm:shrink-0",
+              ]}
             />
           )}
 
-          <div class="flex flex-1 flex-col gap-3">
-            <h3 class="display text-lg group-hover:text-signal">
-              {project.name}
-            </h3>
-            <p class="text-sm text-graphite">{project.description}</p>
+          <div class="flex flex-1 flex-col gap-5">
+            <div class="flex flex-1 flex-col gap-3">
+              <h3
+                class:list={[
+                  "display group-hover:text-signal-ink",
+                  project.featured ? "text-2xl" : "text-lg",
+                ]}
+              >
+                {project.name}
+              </h3>
+              {project.featured && project.tagline && (
+                <p class="font-mono text-xs text-graphite">{project.tagline}</p>
+              )}
+              <p
+                class:list={[
+                  "text-graphite",
+                  project.featured ? "max-w-md text-base" : "text-sm",
+                ]}
+              >
+                {project.description}
+              </p>
+            </div>
+
+            <ul class="flex flex-wrap gap-x-3 gap-y-1">
+              {project.technologies.map((tech) => (
+                <li class="font-mono text-[0.6875rem] tracking-wide text-graphite">
+                  {tech}
+                </li>
+              ))}
+            </ul>
+
+            {project.link && (
+              <p class="font-mono text-xs text-signal-ink">
+                {project.linkLabel ?? data.ui.viewOnGithub} →
+              </p>
+            )}
           </div>
-
-          <ul class="flex flex-wrap gap-x-3 gap-y-1">
-            {project.technologies.map((tech) => (
-              <li class="font-mono text-[0.6875rem] tracking-wide text-graphite">
-                {tech}
-              </li>
-            ))}
-          </ul>
-
-          {project.link && (
-            <p class="font-mono text-xs text-signal">
-              {project.linkLabel ?? data.ui.viewOnGithub} →
-            </p>
-          )}
         </li>
       ))
     }

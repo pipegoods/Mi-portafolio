@@ -11,6 +11,9 @@
   --color-paper: #f2f6f5;
   --color-tiffany: #81d8d0;
   --color-signal: #0abab5;
+  /* La señal sobre papel solo llega a 2.2:1. Para texto, y para fondos con
+     texto encima, va esta versión profunda: 4.7:1, pasa WCAG AA. */
+  --color-signal-ink: #077a76;
   --color-graphite: #5a6b69;
   --color-hairline: #d5e0de;
 

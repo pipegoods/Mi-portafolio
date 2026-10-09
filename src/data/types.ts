@@ -25,6 +25,8 @@ export interface Project {
   linkLabel?: string;
   /** Los proyectos entran al CV solo si se marcan; el sitio los muestra todos. */
   inCv?: boolean;
+  /** El sitio lo muestra en una tarjeta ancha, antes que los demás. */
+  featured?: boolean;
 }
 
 export interface SkillGroup {
@@ -68,8 +70,17 @@ export interface Ui {
   /** Código del idioma para el atributo lang y las URLs. */
   locale: string;
   /** Etiquetas de navegación y encabezados de sección. */
-  nav: { about: string; experience: string; projects: string };
-  sections: { about: string; experience: string; projects: string };
+  nav: { about: string; experience: string; projects: string; contact: string };
+  sections: {
+    about: string;
+    experience: string;
+    projects: string;
+    contact: string;
+  };
+  /** Texto que acompaña al correo en la sección de contacto. */
+  contactIntro: string;
+  copyEmail: string;
+  emailCopied: string;
   /** Admite el marcador {years}. */
   yearsInProduction: string;
   resume: string;
@@ -93,6 +104,15 @@ export interface Ui {
   };
   /** Enlace al otro idioma. */
   switchTo: { href: string; label: string };
+  /** Aviso para quien llega con el navegador en el otro idioma. Va escrito en
+   * ese otro idioma, porque es el que entiende el visitante. */
+  languageSuggestion: {
+    /** Prefijo de idioma del navegador que dispara el aviso, p. ej. "en". */
+    lang: string;
+    message: string;
+    action: string;
+    dismiss: string;
+  };
 }
 
 export interface CvData {

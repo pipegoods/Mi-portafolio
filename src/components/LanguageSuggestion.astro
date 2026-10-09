@@ -1,0 +1,88 @@
+---
+import type { CvData } from "../data/types.ts";
+
+interface Props {
+  data: CvData;
+}
+
+const { ui } = Astro.props.data;
+const { lang, message, action, dismiss } = ui.languageSuggestion;
+---
+
+{/* Sugiere, no redirige: quien llega por un enlace en español a propósito no
+debe terminar en otra página. Nace oculto y el script decide si mostrarlo. */}
+<aside
+  hidden
+  lang={lang}
+  data-lang-suggestion={lang}
+  data-current-lang={ui.locale}
+  class="fixed inset-x-4 bottom-4 z-20 flex items-center gap-4 border border-hairline bg-white px-4 py-3 shadow-lg sm:inset-x-auto sm:right-6 sm:bottom-6 sm:max-w-sm"
+>
+  <p class="flex-1 text-sm text-ink">
+    {message}
+    <a
+      href={ui.switchTo.href}
+      data-lang-switch
+      class="mt-1 block font-mono text-xs text-signal-ink underline-offset-4 hover:underline"
+    >
+      {action} →
+    </a>
+  </p>
+  <button
+    type="button"
+    data-lang-dismiss
+    class="font-mono text-xs text-graphite transition-colors hover:text-signal-ink"
+  >
+    {dismiss}
+  </button>
+</aside>
+
+<script>
+  // La elección se recuerda por visitante. Si el almacenamiento está
+  // bloqueado (modo privado), el aviso simplemente vuelve a salir.
+  const KEY = "lang-pref";
+
+  function read() {
+    try {
+      return localStorage.getItem(KEY);
+    } catch {
+      return null;
+    }
+  }
+
+  function save(value: string) {
+    try {
+      localStorage.setItem(KEY, value);
+    } catch {
+      // Sin almacenamiento no hay nada que recordar.
+    }
+  }
+
+  const banner = document.querySelector<HTMLElement>("[data-lang-suggestion]");
+
+  if (banner) {
+    const target = banner.dataset.langSuggestion ?? "";
+    const current = banner.dataset.currentLang ?? "";
+
+    // Cualquier enlace al otro idioma, el del raíl o el del aviso, cuenta
+    // como elección explícita.
+    document.querySelectorAll("[data-lang-switch]").forEach((link) => {
+      link.addEventListener("click", () => save(target));
+    });
+
+    banner.querySelector("[data-lang-dismiss]")?.addEventListener("click", () => {
+      save(current);
+      banner.hidden = true;
+    });
+
+    // Manda el primer idioma del navegador que el sitio tenga: alguien con
+    // ["pt-BR", "en"] lee mejor en inglés que en español.
+    const preferred = navigator.languages
+      .map((l) => l.slice(0, 2).toLowerCase())
+      .find((l) => l === target || l === current);
+
+    if (!read() && preferred === target) {
+      banner.hidden = false;
+    }
+  }
+</script>

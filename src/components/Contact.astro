@@ -1,0 +1,63 @@
+---
+import type { CvData } from "../data/types.ts";
+
+interface Props {
+  data: CvData;
+}
+
+const { data } = Astro.props;
+const { ui } = data;
+const { email } = data.profile;
+---
+
+<section id="contacto" class="relative scroll-mt-8 py-14">
+  <span class="node top-[4.1rem] -left-8 -translate-x-1/2" data-node></span>
+
+  <h2 class="eyebrow reveal">{ui.sections.contact}</h2>
+
+  <div class="reveal mt-6 flex flex-col gap-4">
+    <p class="text-lg text-graphite">{ui.contactIntro}</p>
+
+    <div class="flex flex-wrap items-center gap-x-5 gap-y-3">
+      {/* break-all: en móvil el correo no cabe completo en la línea. */}
+      <a
+        href={`mailto:${email}`}
+        class="display text-xl break-all normal-case transition-colors hover:text-signal-ink sm:text-2xl"
+      >
+        {email}
+      </a>
+
+      {/* Sin JavaScript el botón no hace nada, así que nace oculto y el
+      script lo muestra solo si el portapapeles está disponible. */}
+      <button
+        type="button"
+        hidden
+        data-copy-email={email}
+        data-copied-label={ui.emailCopied}
+        class="rounded-full border border-hairline px-3 py-1.5 font-mono text-xs text-graphite transition-colors hover:border-signal hover:text-signal-ink"
+      >
+        <span data-copy-label aria-live="polite">{ui.copyEmail}</span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<script>
+  const button = document.querySelector<HTMLButtonElement>("[data-copy-email]");
+  const label = button?.querySelector("[data-copy-label]");
+
+  if (button && label && navigator.clipboard) {
+    button.hidden = false;
+    const original = label.textContent;
+
+    button.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(button.dataset.copyEmail ?? "");
+        label.textContent = button.dataset.copiedLabel ?? original;
+        setTimeout(() => (label.textContent = original), 2000);
+      } catch {
+        // Sin permiso de portapapeles: queda el enlace mailto.
+      }
+    });
+  }
+</script>

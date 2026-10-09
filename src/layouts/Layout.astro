@@ -2,6 +2,7 @@
 import { SEO } from "astro-seo";
 
 import Footer from "../components/Footer.astro";
+import LanguageSuggestion from "../components/LanguageSuggestion.astro";
 import Rail from "../components/Rail.astro";
 import { t, yearsOfExperience } from "../data/index.ts";
 import type { CvData } from "../data/types.ts";
@@ -152,6 +153,8 @@ const alternates = [
         <Footer data={data} />
       </main>
     </div>
+
+    <LanguageSuggestion data={data} />
 
     <script>
       import { gsap } from "gsap";

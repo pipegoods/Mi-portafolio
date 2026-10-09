@@ -17,8 +17,9 @@ const years = yearsOfExperience(careerStart);
 
 const sections = [
   { href: "#trabajo", label: ui.nav.about },
-  { href: "#experiencia", label: ui.nav.experience },
   { href: "#proyectos", label: ui.nav.projects },
+  { href: "#experiencia", label: ui.nav.experience },
+  { href: "#contacto", label: ui.nav.contact },
 ];
 
 const resumeFile =
@@ -73,7 +74,7 @@ const [firstName, ...lastNames] = name.split(" ");
           <li>
             <a
               href={href}
-              class="font-mono text-sm text-graphite transition-colors hover:text-signal"
+              class="font-mono text-sm text-graphite transition-colors hover:text-signal-ink"
               data-rail-item
             >
               {label}
@@ -91,7 +92,7 @@ const [firstName, ...lastNames] = name.split(" ");
               href={href}
               target="_blank"
               rel="noopener"
-              class="inline-flex items-center gap-2 rounded-full border border-hairline px-3 py-1.5 font-mono text-xs text-ink transition-colors hover:border-signal hover:bg-signal hover:text-paper"
+              class="inline-flex items-center gap-2 rounded-full border border-hairline px-3 py-1.5 font-mono text-xs text-ink transition-colors hover:border-signal-ink hover:bg-signal-ink hover:text-paper"
               data-rail-item
             >
               <Icon />
@@ -103,7 +104,8 @@ const [firstName, ...lastNames] = name.split(" ");
       <li>
         <a
           href={ui.switchTo.href}
-          class="inline-flex items-center rounded-full border border-hairline px-3 py-1.5 font-mono text-xs text-graphite transition-colors hover:border-signal hover:text-signal"
+          data-lang-switch
+          class="inline-flex items-center rounded-full border border-hairline px-3 py-1.5 font-mono text-xs text-graphite transition-colors hover:border-signal hover:text-signal-ink"
           data-rail-item
         >
           {ui.switchTo.label}

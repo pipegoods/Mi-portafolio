@@ -7,15 +7,20 @@ export const en: CvData = {
   ui: {
     locale: "en",
     nav: {
-      about: "What I build",
+      about: "About me",
       experience: "Experience",
       projects: "Projects",
+      contact: "Contact",
     },
     sections: {
       about: "About me",
       experience: "Experience",
       projects: "Projects",
+      contact: "Contact",
     },
+    contactIntro: "To reach me about a project or a role:",
+    copyEmail: "Copy",
+    emailCopied: "Copied",
     yearsInProduction: "{years} years in production",
     resume: "Resume",
     backToTop: "Back to top",
@@ -35,6 +40,12 @@ export const en: CvData = {
       education: "Education",
     },
     switchTo: { href: "/", label: "Español" },
+    languageSuggestion: {
+      lang: "es",
+      message: "Este sitio también está en español.",
+      action: "Leer en español",
+      dismiss: "Cerrar",
+    },
   },
 
   profile: {
@@ -50,7 +61,7 @@ export const en: CvData = {
     twitter: "@pipegoods",
     careerStart: "2020-05-01",
     about: [
-      "I'm a full stack developer from Cartagena, on Colombia's Caribbean coast. I've spent six years at igloolab building platforms for scientific events: e-learning, live streams, conference games, and kiosks that run on physical buttons.",
+      "I'm a full stack developer from Cartagena, on Colombia's Caribbean coast, with six years of experience. Five of them have been at igloolab, building platforms for scientific events: e-learning, live streams, conference games, and kiosks that run on physical buttons.",
       "I take projects end to end: I gather the requirements with the client, build it, and look after the server. Right now I'm leading an AI diagnostic-support tool for general practitioners.",
       "Outside work I build my own apps, usually to solve a problem I keep running into.",
     ],
@@ -142,6 +153,7 @@ export const en: CvData = {
       link: "https://dogesti.com",
       linkLabel: "View demo",
       inCv: true,
+      featured: true,
     },
     {
       name: "Viatro",
